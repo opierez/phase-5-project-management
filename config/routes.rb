@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-   # route to test your configuration
-   get '/hello', to: 'application#hello_world'
+  resources :task_tags
+  resources :tags
+  resources :tasks
+  resources :columns
+  resources :saved_quotes
+  resources :quotes
+  resources :boards
+  resources :users
+  
 
    get '*path',
       to: 'fallback#index',

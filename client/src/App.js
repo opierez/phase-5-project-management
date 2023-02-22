@@ -6,7 +6,7 @@ import Home from "./ components/Home";
 import Login from "./ components/Login";
 import NavBar from "./ components/NavBar";
 import SignupForm from "./ components/SignupForm";
-import UserTasks from "./ components/UserTasks";
+
 
 function App() {
  
@@ -30,16 +30,12 @@ function App() {
             <Login /> 
           </Route>
 
-          <Route path="/boards">
+          <Route path="/users/:id/boards">
             <BoardsContainer /> 
           </Route>
 
-          <Route path="/boards/:id">
+          <Route path="/users/:id/boards/:board_id">
             <Board /> 
-          </Route>
-
-          <Route path="/users/:id/tasks">
-            <UserTasks /> 
           </Route>
 
           <Route exact path="/">
