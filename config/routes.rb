@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   resources :columns
   resources :saved_quotes
   resources :quotes
-  resources :boards
-  resources :users
+  resources :boards, only: [:show, :index]
+  resources :users, only: [:show] do
+    #nested resource for boards
+    resources :boards, only:[:show, :index]
+  end
   
 
    get '*path',
