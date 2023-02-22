@@ -46,5 +46,7 @@ group :development do
   # gem "spring"
 end
 
+gem 'rest-client'
+
 
 gem "active_model_serializers", "~> 0.10.13"

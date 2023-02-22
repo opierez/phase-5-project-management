@@ -1,7 +1,66 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'rest-client'
+
+puts "🌱 Seeding data..."
+
+#clear out all existing data (except for quotes data)
+# TaskTag.destroy_all
+# Tag.destroy_all
+# Task.destroy_all
+# Column.destroy_all
+# Board.destroy_all
+# User.destroy_all 
+
+
+# Users
+# olivia = User.create(username: "olive", password: "1234", first_name: "Olivia", last_name: "Nunez")
+# nicole = User.create(username: "nikki", password: "1234", first_name: "Nicole", last_name: "Saunders")
+# miguel = User.create(username: "mike", password: "1234", first_name: "Miguel", last_name: "Phillipe")
+
+# # Boards
+# olivia_board1 = Board.create(title: "Content Creation", is_favorite?: false, user_id: olivia.id)
+# olivia_board2 = Board.create(title: "SE Projects", is_favorite?: true, user_id: olivia.id)
+# olivia_board3 = Board.create(title: "Photography", is_favorite?: false, user_id: olivia.id)
+# olivia_board4 = Board.create(title: "Music", is_favorite?: false, user_id: olivia.id)
+# nicole_board1 = Board.create(title: "DJ Sets", is_favorite?: true, user_id: nicole.id)
+# nicole_board2 = Board.create(title: "Studies", is_favorite?: false, user_id: nicole.id)
+# nicole_board3 = Board.create(title: "Crafts", is_favorite?: false, user_id: nicole.id)
+# miguel_board1 = Board.create(title: "Gaming", is_favorite?: false, user_id: miguel.id)
+
+# # Columns
+# olivia_board2_column1 = Column.create(name: "To-do", board_id: olivia_board2.id)
+# olivia_board2_column2 = Column.create(name: "In progress", board_id: olivia_board2.id)
+# olivia_board2_column3 = Column.create(name: "Completed", board_id: olivia_board2.id)
+
+# # Tasks
+# olivia_board2_column1_task1 = Task.create(title: "Research external APIs", description: "find quote or joke APIs", due_date: Date.new(2023,2,27), is_completed?: false, column_id: olivia_board2_column1.id)
+# olivia_board2_column2_task1 = Task.create(title: "Build CRUD Actions", description: "create CRUD actions in Users Controller", due_date: Date.new(2023,2,28), is_completed?: false, column_id: olivia_board2_column2.id)
+# olivia_board2_column3_task1 = Task.create(title: "Build CRUD Actions", description: "create CRUD actions in Users Controller", due_date: Date.new(2023,3,1), is_completed?: false, column_id: olivia_board2_column3.id)
+# olivia_board2_column1_task2 = Task.create(title: "Set up routes", description: "Set up navigation and routes on frontend", due_date: Date.new(2023,2,27), is_completed?: false, column_id: olivia_board2_column1.id)
+
+
+# Tags
+# tag_low_priority = Tag.create(name: "Low Priority", tag_type: "priority", color: "#66BA7A")
+# tag_medium_priority = Tag.create(name: "Medium Priority", tag_type: "priority", color: "#FFB452")
+# tag_high_priority = Tag.create(name: "High Priority", tag_type: "priority", color: "#E65C5C")
+# tag_status_on_track = Tag.create(name: "On track", tag_type: "status", color: "#7FB03F")
+# tag_status_off_track = Tag.create(name: "Off track", tag_type: "status", color: "#CC1111")
+# tag_stage_research = Tag.create(name: "Research", tag_type: "stage", color: "#AAC8FA")
+# tag_stage_develop = Tag.create(name: "Development", tag_type: "stage", color: "#FFE97D")
+# tag_stage_testing = Tag.create(name: "Testing", tag_type: "stage", color: "#FFC4D8")
+# tag_stage_testing = Tag.create(name: "Implementation", tag_type: "stage", color: "#6369B8")
+
+# Task Tags
+# olivia_board2_column1_task1_tag1 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_high_priority.id)
+# olivia_board2_column1_task1_tag2 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_status_on_track.id)
+# olivia_board2_column1_task1_tag3 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_stage_develop.id)
+
+# Quotes 
+# response = RestClient.get('https://type.fit/api/quotes')
+# quotes = JSON.parse(response.body)
+
+# quotes.each do |quote|
+#   Quote.create(text: quote["text"], author: quote["author"])
+# end
+
+
+puts "✅ Done seeding!"
