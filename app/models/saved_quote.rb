@@ -1,4 +1,4 @@
 class SavedQuote < ApplicationRecord
-  belongs_to :user, dependent: :destroy
-  belongs_to :quote, dependent: :destroy
+  belongs_to :user
+  belongs_to :quote
 end

@@ -10,4 +10,6 @@ class BoardsController < ApplicationController
         render json: boards, status: :ok 
     end
 
+    
+
 end
