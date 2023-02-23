@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show] do
     #nested resource for boards
-    resources :boards, only: [:show, :index]
+    resources :boards, only: [:show, :index, :create]
   end
   
 
