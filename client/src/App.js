@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Board from "./ components/Board";
-import BoardsDashboard from "./ components/BoardsDashboard";
+import BoardsContainer from "./ components/BoardsContainer";
 import Home from "./ components/Home";
 import Login from "./ components/Login";
 import TopNav from "./ components/TopNav";
@@ -37,8 +37,10 @@ function App() {
       })
 }, [])
 
-// console.log(boards)
-console.log(user)
+  const handleUpdateBoards = (newBoard) => {
+    console.log(newBoard)
+    setBoards([...boards, newBoard])
+  }
   
 
   return (
@@ -62,7 +64,7 @@ console.log(user)
             <Board />
           </Route>
           <Route path="/users/:id/boards">
-            <BoardsDashboard boards={boards} />
+            <BoardsContainer boards={boards} handleUpdateBoards={handleUpdateBoards}/>
           </Route>
           <Route exact path="/">
             <Home />
