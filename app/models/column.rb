@@ -1,4 +1,4 @@
 class Column < ApplicationRecord
-  belongs_to :board, dependent: :destroy
-  has_many :tasks 
+  belongs_to :board
+  has_many :tasks, dependent: :destroy  
 end

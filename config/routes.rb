@@ -2,13 +2,17 @@ Rails.application.routes.draw do
   resources :task_tags
   resources :tags
   resources :tasks
-  resources :columns
+  resources :columns do 
+    resources :tasks, only: [:index, :show, :create]
+  end
   resources :saved_quotes
   resources :quotes
-  resources :boards, only: [:show, :index]
+  resources :boards, only: [:show, :index] do
+    resources :columns, only: [:index]
+  end
   resources :users, only: [:show] do
     #nested resource for boards
-    resources :boards, only:[:show, :index]
+    resources :boards, only: [:show, :index]
   end
   
 

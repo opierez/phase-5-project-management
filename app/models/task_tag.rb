@@ -1,4 +1,4 @@
 class TaskTag < ApplicationRecord
-  belongs_to :task, dependent: :destroy
-  belongs_to :tag, dependent: :destroy
+  belongs_to :task
+  belongs_to :tag
 end

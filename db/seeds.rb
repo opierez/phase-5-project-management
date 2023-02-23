@@ -54,6 +54,7 @@ puts "🌱 Seeding data..."
 # olivia_board2_column1_task1_tag2 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_status_on_track.id)
 # olivia_board2_column1_task1_tag3 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_stage_develop.id)
 
+
 # Quotes 
 # response = RestClient.get('https://type.fit/api/quotes')
 # quotes = JSON.parse(response.body)
