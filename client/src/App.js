@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
-import Board from "./ components/Board";
+import BoardDashboard from "./ components/BoardDashboard";
 import BoardsContainer from "./ components/BoardsContainer";
 import Home from "./ components/Home";
 import Login from "./ components/Login";
@@ -10,14 +10,11 @@ import SideNav from "./ components/SideNav";
 import Profile from "./ components/Profile";
 
 
-
-
 function App() {
  
   const [user, setUser] = useState({})
-  const [boards, setBoards] = useState([])
   const [errors, setErrors] = useState([])
-  const location = useLocation()
+  // const location = useLocation()
 
   useEffect(() => {
     fetch('/users/1')
@@ -26,21 +23,16 @@ function App() {
           res.json().then(user => {
             console.log(user)
             setUser(user)
-            setBoards(user.boards)
           })
         } else {
           res.json().then(data => {
             console.log(data)
-            setErrors(data)
+            setErrors(data.errors)
           })
         }
       })
 }, [])
 
-  const handleUpdateBoards = (newBoard) => {
-    console.log(newBoard)
-    setBoards([...boards, newBoard])
-  }
   
 
   return (
@@ -61,10 +53,10 @@ function App() {
             <Profile user={user}/>
           </Route>
           <Route path="/users/:id/boards/:board_id">
-            <Board />
+            <BoardDashboard />
           </Route>
           <Route path="/users/:id/boards">
-            <BoardsContainer boards={boards} handleUpdateBoards={handleUpdateBoards}/>
+            <BoardsContainer user={user} />
           </Route>
           <Route exact path="/">
             <Home />
