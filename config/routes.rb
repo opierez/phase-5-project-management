@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   end
   resources :saved_quotes
   resources :quotes
-  resources :boards, only: [:show, :index] do
+  resources :boards, only: [:update, :destroy] do
     resources :columns, only: [:index]
   end
   resources :users, only: [:show] do
     #nested resource for boards
-    resources :boards, only: [:show, :index, :create]
+    resources :boards, only: [:index, :create]
   end
   
 

@@ -17,6 +17,18 @@ class BoardsController < ApplicationController
         render json: new_board, status: :created 
     end
 
+    def update 
+        board = Board.find(params[:id])
+        board.update!(board_params)
+        render json: board, status: :accepted 
+    end
+
+    def destroy 
+        board = Board.find(params[:id])
+        board.destroy
+        head :no_content 
+    end
+
     private 
 
     def board_params 
