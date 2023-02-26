@@ -39,15 +39,15 @@ puts "🌱 Seeding data..."
 
 
 # Tags
-# tag_low_priority = Tag.create(name: "Low Priority", tag_type: "priority", color: "#66BA7A")
-# tag_medium_priority = Tag.create(name: "Medium Priority", tag_type: "priority", color: "#FFB452")
-# tag_high_priority = Tag.create(name: "High Priority", tag_type: "priority", color: "#E65C5C")
-# tag_status_on_track = Tag.create(name: "On track", tag_type: "status", color: "#7FB03F")
-# tag_status_off_track = Tag.create(name: "Off track", tag_type: "status", color: "#CC1111")
-# tag_stage_research = Tag.create(name: "Research", tag_type: "stage", color: "#AAC8FA")
-# tag_stage_develop = Tag.create(name: "Development", tag_type: "stage", color: "#FFE97D")
-# tag_stage_testing = Tag.create(name: "Testing", tag_type: "stage", color: "#FFC4D8")
-# tag_stage_testing = Tag.create(name: "Implementation", tag_type: "stage", color: "#6369B8")
+# tag_low_priority = Tag.create(name: "Low Priority", category: "priority", color: "#66BA7A")
+# tag_medium_priority = Tag.create(name: "Medium Priority", category: "priority", color: "#FFB452")
+# tag_high_priority = Tag.create(name: "High Priority", category: "priority", color: "#E65C5C")
+# tag_status_on_track = Tag.create(name: "On track", category: "status", color: "#7FB03F")
+# tag_status_off_track = Tag.create(name: "Off track", category: "status", color: "#CC1111")
+# tag_stage_research = Tag.create(name: "Research", category: "stage", color: "#AAC8FA")
+# tag_stage_develop = Tag.create(name: "Development", category: "stage", color: "#FFE97D")
+# tag_stage_testing = Tag.create(name: "Testing", category: "stage", color: "#FFC4D8")
+# tag_stage_testing = Tag.create(name: "Implementation", category: "stage", color: "#6369B8")
 
 # Task Tags
 # olivia_board2_column1_task1_tag1 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_high_priority.id)

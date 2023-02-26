@@ -21,12 +21,12 @@ function App() {
       .then (res => {
         if (res.ok) {
           res.json().then(user => {
-            console.log(user)
+            // console.log(user)
             setUser(user)
           })
         } else {
           res.json().then(data => {
-            console.log(data)
+            // console.log(data)
             setErrors(data.errors)
           })
         }
