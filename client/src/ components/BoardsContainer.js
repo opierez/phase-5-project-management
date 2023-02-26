@@ -14,6 +14,7 @@ function BoardsContainer({ user }) {
     const { id } = useParams()
     // console.log(id)
 
+    // fetch all boards associated with logged in user
     useEffect(() => {
         fetch(`/users/${user.id}/boards`)
             .then(res => {
@@ -36,7 +37,7 @@ function BoardsContainer({ user }) {
 
     // handles updating the boards state after an existing board has been edited or a new board has been added
     const handleUpdateBoards = (board) => {
-        console.log(board)
+        // console.log(board)
         let updatedBoards
         const existingBoard = boards.find(b => b.id === board.id) // checks boards to find out if the board being passed in is an existing board
         if (existingBoard) {

@@ -119,7 +119,7 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
             {showOptions && (
                 <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
                     {isEditingTitle ? null : (
-                        <button className="block w-full text-left" onClick={(e) => { e.stopPropagation(); handleEditTitleClick(); }}>
+                        <button className="block w-full text-left" onClick={(e) => { e.stopPropagation(); handleEditTitleClick(); }}> 
                             Edit Board Title
                         </button>
                     )}

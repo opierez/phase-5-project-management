@@ -20,7 +20,7 @@ function AddBoardForm({ id, handleShowForm, handleUpdateBoards }) {
     // handles the form submission and creates a new board 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(boardForm)
+        // console.log(boardForm)
 
         fetch(`/users/${id}/boards`, {
             method: "POST",
@@ -32,7 +32,7 @@ function AddBoardForm({ id, handleShowForm, handleUpdateBoards }) {
         .then(res => {
             if (res.ok) {
                 res.json().then((newBoard) => {
-                    console.log(newBoard)
+                    // console.log(newBoard)
                     handleUpdateBoards(newBoard) // updates the boards list to include the new board
                 })
             } else {
