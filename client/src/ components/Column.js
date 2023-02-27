@@ -1,32 +1,14 @@
 import React, {useState, useEffect} from "react";
 import Task from "./Task";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
-import AddTaskModal from "./AddTaskModal";
+import AddTaskForm from "./AddTaskForm";
+import Modal from "./Modal";
 
-function Column({ id, columnName, handleUpdatedColumn, ...rest }) {
-   
+function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, ...rest }) {
+
     const [showOptions, setShowOptions] = useState(false)
-    const [tasks, setTasks] = useState([])
     const [errors, setErrors] = useState([])
     const [currentColumnName, setCurrentColumnName] = useState(columnName)
-    const [openNewTaskModal, setOpenNewTaskModal] = useState(false)
-
-    useEffect(() => {
-        fetch(`/columns/${id}/tasks`)
-        .then(res => {
-            if (res.ok) {
-                res.json().then(taskData => {
-                    // console.log(taskData)
-                    setTasks(taskData)
-                })
-            } else {
-                res.json().then(data => {
-                    // console.log(data)
-                    setErrors(data)
-                })
-            }
-        })
-    }, [id])
 
     // hides/shows column options 
     const handleEllipsisClick = () => {
@@ -65,57 +47,61 @@ function Column({ id, columnName, handleUpdatedColumn, ...rest }) {
 
     }
 
-    const handleAddTaskClick = () => {
-        setOpenNewTaskModal(true)
+    // when user clicks on "add task" option, show the new task modal and close the column options
+    const handleShowNewTaskModal = (id) => {
+      // console.log(id)
+      showNewTaskModal(id)
+      setShowOptions(false)
     }
-    
 
-    return (
-        <div {...rest} className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
-            marginRight: "1rem",
-            position: "relative",
-            height: "580px", 
-            overflowY: "auto", 
-            display: "flex", 
-            flexDirection: "column", 
-          }}>
-            <input 
-              type="text"
-              className="font-medium text-lg mb-2"
-              value={currentColumnName}
-              onChange={handleColumnNameChange}
-              onBlur={handleColumnNameBlur}
-              style={{
-                border: 'none',
-                outline: 'none',
-                background: 'none',
-                fontWeight: 'bold',
-                width: '100%',
-              }}
-            />
-          {/* <h3 className="font-medium text-lg mb-2">{columnName}</h3> */}
-          <button className="absolute top-0 right-0 mt-2 mr-2" onClick={handleEllipsisClick}>
-            <IoEllipsisHorizontal size={20} />
+
+  return (
+    <div {...rest} className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
+        marginRight: "1rem",
+        position: "relative",
+        height: "580px", 
+        overflowY: "auto", 
+        display: "flex", 
+        flexDirection: "column", 
+      }}>
+        <input 
+          type="text"
+          className="font-medium text-lg mb-2"
+          value={currentColumnName}
+          onChange={handleColumnNameChange}
+          onBlur={handleColumnNameBlur}
+          style={{
+            border: 'none',
+            outline: 'none',
+            background: 'none',
+            fontWeight: 'bold',
+            width: '100%',
+          }}
+        />
+      {/* <h3 className="font-medium text-lg mb-2">{columnName}</h3> */}
+      <button className="absolute top-0 right-0 mt-2 mr-2" onClick={handleEllipsisClick}>
+        <IoEllipsisHorizontal size={20} />
+      </button>
+      {showOptions ? (
+        <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
+          <button className="block w-full text-left" onClick={() => handleShowNewTaskModal(id)}>
+            Add Task
           </button>
-          {showOptions ? (
-            <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
-              <button className="block w-full text-left" onClick={handleAddTaskClick}>
-                Add Task
-              </button>
-              <button className="block w-full text-left" onClick={handleDeleteClick}>
-                Delete Column
-              </button>
-            </div>
-          ) : null}
-          <div style={{ flex: 1 }}>
-          {tasks.map(task => (
-            // console.log(task)
-            <Task key={task.id} task={task} style={{ flex: 1 }}/>
-          ))}
-          {openNewTaskModal && <AddTaskModal />}
-          </div>
+          <button className="block w-full text-left" onClick={handleDeleteClick}>
+            Delete Column
+          </button>
         </div>
-      )      
+      ) : null}
+      <div style={{ flex: 1 }}>
+      {tasks
+        .filter(task => task.column_id === id) // creates a new array with all of the tasks whose id matches the column id  
+        .map(task => ( // map over the filtered array and create a Task card for each task within the array 
+          <Task key={task.id} task={task} style={{ flex: 1 }} />
+        ))
+      }
+      </div>
+    </div>
+  )      
 }
 
 export default Column 
