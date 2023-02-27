@@ -1,15 +1,26 @@
 class TasksController < ApplicationController
 
     def index 
-        column = Column.find(params[:column_id])
-        tasks = column.tasks 
+        # column = Column.find(params[:column_id])
+        # tasks = column.tasks 
+        # render json: tasks, status: :ok 
+        board = Board.find(params[:board_id])
+        tasks = board.tasks
         render json: tasks, status: :ok 
     end
 
     def create
         column = Column.find(params[:column_id])
-        new_task = Task.create!(task_params.merge(is_completed?: false, column_id: column.id))
-        render json: new_task, status: :created 
+        new_task = column.tasks.create!(task_params.merge(is_completed: false))
+        
+        if params[:tags].length > 0
+            new_task_tags = params[:tags].map do |tag_name|
+                tag = Tag.find_by(name: tag_name)
+                TaskTag.create!(task_id: new_task.id, tag_id: tag.id)
+            end
+        end
+
+        render json: new_task, status: :created
     end
 
 

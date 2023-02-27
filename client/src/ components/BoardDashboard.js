@@ -2,13 +2,20 @@ import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import Column from "./Column";
 import { BsFillPlusCircleFill } from 'react-icons/bs'
+import Modal from "./Modal";
+import AddTaskForm from "./AddTaskForm";
+import Task from "./Task";
 
 function BoardDashboard() {
 
     const { board_id } = useParams()
 
     const [columns, setColumns] = useState([])
+    const [tasks, setTasks] = useState([])
     const [errors, setErrors] = useState([])
+    const [showModal, setShowModal] = useState(false)
+    const [selectedColumnId, setSelectedColumnId] = useState(null)
+   
 
     // fetch all columns associated with current board 
     useEffect(() => {
@@ -28,6 +35,25 @@ function BoardDashboard() {
             }
           })
     }, [])
+
+    // fetch all tasks associated with current board
+    useEffect(() => {
+      fetch(`/boards/${board_id}/tasks`)
+      .then (res => {
+          if (res.ok) {
+            res.json().then(taskData => {
+              console.log(taskData)
+              setTasks(taskData)
+            })
+          } else {
+            res.json().then(data => {
+              // console.log(data)
+              setErrors(data)
+            })
+          }
+        })
+  }, [])
+
 
     // handles adding a new column to the board 
     const handleAddColumnClick = () => {
@@ -61,17 +87,37 @@ function BoardDashboard() {
       setColumns(updatedColumns) // updates column list to include updated/edited column 
     }
 
+    // show the Add New Task modal and set the selectedColumnId to the id of the column where the user clicked add task 
+    const showNewTaskModal = (id) => {
+      setSelectedColumnId(id)
+      setShowModal(true)
+    }
+
+    // hides the Add New Task modal after a user has submitted their new task or chose to cancel adding a new task
+    const handleCloseTaskModal = () => {
+      setShowModal(false)
+    }
+
+    // when a new task has been added, update the tasks state with that new task 
+    const handleAddNewTask = (task) => {
+      // console.log(task)
+      setTasks([...tasks, task])
+    }
+
 
     return (
       <div className="mx-auto max-w-5xl w-full h-full overflow-x-scroll p-4">
+        {showModal && <Modal childComponent={<AddTaskForm handleCloseTaskModal={handleCloseTaskModal} handleAddNewTask={handleAddNewTask} selectedColumnId={selectedColumnId}/>}/>}
       <div className="flex flex-row justify-between items-start">
           {columns.map(column => ( 
               <Column 
-              key={column.id} 
-              id={column.id} 
-              columnName={column.name} 
-              handleUpdatedColumn={handleUpdatedColumn}
-              className="mb-4" />
+                key={column.id} 
+                id={column.id} 
+                columnName={column.name} 
+                handleUpdatedColumn={handleUpdatedColumn}
+                showNewTaskModal={showNewTaskModal}
+                tasks={tasks}
+                className="mb-4"/>
           ))}
           <button className="mt-4">
               <span title="Add column">
