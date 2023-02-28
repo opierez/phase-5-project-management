@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     end
 
     def create
-        column = Column.find(params[:column_id])
+        column = find_column
         new_task = column.tasks.create!(task_params.merge(is_completed: false))
         
         if params[:tags].length > 0
@@ -23,11 +23,32 @@ class TasksController < ApplicationController
         render json: new_task, status: :created
     end
 
+    def update 
+        task = Task.find(params[:id])
+        task.update!(task_params)
+
+        if params[:tags].present?
+            # remove existing task tags
+            task.task_tags.destroy_all 
+
+            #create new task tags for the update list of tag names
+            params[:tags].each do |tag_name|
+                tag = Tag.find_by(name: tag_name)
+                TaskTag.create!(task_id: task.id, tag_id: tag.id) 
+            end
+        end
+        render json: task, status: :accepted 
+    end
+
 
     private 
 
     def task_params 
-        params.permit(:title, :description, :due_date, :column_id)
+        params.permit(:title, :description, :due_date, :column_id, :is_completed)
+    end
+
+    def find_column 
+        Column.find(params[:column_id])
     end
 
 end
