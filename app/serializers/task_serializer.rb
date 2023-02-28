@@ -5,11 +5,7 @@ class TaskSerializer < ActiveModel::Serializer
 
   # updates the is_completed? attribute to completed so it can be handled better on the frontend ("?" causing frontend issues)
   def completed 
-    if :is_completed? == true 
-      return true
-    else 
-      return false 
-    end
+    object.is_completed 
   end
   
 end

@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
+import {AiOutlineCheckCircle} from 'react-icons/ai'
 
-function Task({ task, showNewTaskModal, handleDeletedTask }) {
+function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
 
     const { description, due_date, id, title, tags} = task 
 
@@ -10,6 +11,16 @@ function Task({ task, showNewTaskModal, handleDeletedTask }) {
 
     // state for any errors returned from fetch request
     const [errors, setErrors] = useState([])
+
+    const [isCompleted, setIsCompleted] = useState(false)
+
+    useEffect(() => {
+        if (task.completed) {
+            setIsCompleted(true)
+        } else if (!task.completed) {
+            setIsCompleted(false)
+        }
+    }, [task])
    
     // when user clicks on ellipsis, show/hide the task options
     const handleEllipsisClick = () => {
@@ -41,9 +52,48 @@ function Task({ task, showNewTaskModal, handleDeletedTask }) {
         })
     }
 
+    // handle marking the task as complete 
+    const handleTaskCompleteClick = (task) => {
+        console.log('task value when task is clicked', task.completed)
+
+        let taskCompleteStatus 
+
+        if (task.completed === false) {
+            taskCompleteStatus = true
+        } else if (task.completed === true) {
+            taskCompleteStatus = false
+        }
+    
+        fetch(`/tasks/${task.id}`, {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({is_completed: taskCompleteStatus})
+        })
+        .then(res => {
+            if (res.ok) {
+                res.json().then(updatedTask => {
+                    console.log('task value after fetch', updatedTask.completed)
+                    // console.log(updatedTask)
+                    setIsCompleted(updatedTask.completed)
+                    handleAddNewTask(updatedTask)
+                })
+            } else {
+                res.json().then(data => {
+                    console.log(data.errors)
+                    setErrors(data.errors)
+                })
+            }
+        })
+        
+        
+    }
+
 
     return (
         <div className="max-w-sm relative rounded overflow-hidden shadow-lg">
+            <div className="text-green-500 absolute top-0 left-0 mt-2 ml-2">
+                <AiOutlineCheckCircle size={20} onClick={() => handleTaskCompleteClick(task)} color={isCompleted ? 'green' : 'black'}/>
+            </div>
             <div className="px-6 py-4">
                 <div className="text-base mb-2">{title}</div>
                 <p className="text-gray-700 text-base">{description}</p>

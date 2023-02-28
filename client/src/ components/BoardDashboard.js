@@ -149,6 +149,7 @@ function BoardDashboard() {
                     showNewTaskModal={showNewTaskModal}
                     tasks={tasks}
                     handleDeletedTask={handleDeletedTask}
+                    handleAddNewTask={handleAddNewTask}
                     className="mb-4"/>
               ))}
               <button className="mt-4">

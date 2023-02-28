@@ -27,6 +27,9 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
     // state to check if the user is editing a task so the appropriate path and method can be used in the fetch request
     const [isEditing, setIsEditing] = useState(false)
 
+    // state for any errors returned from fetch request
+    const [errors, setErrors] = useState([])
+
     // if there's a selected task being edited, update the form fields with the task selected task data 
     useEffect(() => {
       if (selectedTask !== null) {
@@ -108,6 +111,10 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
             // console.log(newTask)
             setFormData({title: "", description: "", due_date: "", column_id: selectedColumnId, is_completed: false, tags: []}) // reset the form data to its initial state
             handleAddNewTask(newTask) // cb function to update the tasks state to include the newly created task or edited task
+          })
+        } else {
+          res.json().then(data => {
+            setErrors(data.errors)
           })
         }
       })
