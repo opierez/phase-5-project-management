@@ -3,7 +3,7 @@ import Task from "./Task";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
 
 
-function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, handleDeletedTask, ...rest }) {
+function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, handleDeletedTask, handleAddNewTask, ...rest }) {
 
     const [showOptions, setShowOptions] = useState(false)
     const [errors, setErrors] = useState([])
@@ -102,6 +102,7 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
             task={task} 
             showNewTaskModal={showNewTaskModal} 
             handleDeletedTask={handleDeletedTask}
+            handleAddNewTask={handleAddNewTask}
             style={{ flex: 1 }} />
         ))
       }
