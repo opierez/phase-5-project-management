@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Task from "./Task";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
-import AddTaskForm from "./AddTaskForm";
-import Modal from "./Modal";
+
 
 function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, ...rest }) {
 
@@ -96,7 +95,7 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
       {tasks
         .filter(task => task.column_id === id) // creates a new array with all of the tasks whose id matches the column id  
         .map(task => ( // map over the filtered array and create a Task card for each task within the array 
-          <Task key={task.id} task={task} style={{ flex: 1 }} />
+          <Task key={task.id} task={task} showNewTaskModal={showNewTaskModal} style={{ flex: 1 }} />
         ))
       }
       </div>

@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, createContext, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Column from "./Column";
 import { BsFillPlusCircleFill } from 'react-icons/bs'
 import Modal from "./Modal";
-import AddTaskForm from "./AddTaskForm";
+import AddEditTaskForm from "./AddEditTaskForm";
 import Task from "./Task";
 
 function BoardDashboard() {
@@ -15,7 +15,8 @@ function BoardDashboard() {
     const [errors, setErrors] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [selectedColumnId, setSelectedColumnId] = useState(null)
-   
+    const [selectedTask, setSelectedTask] = useState(null)
+
 
     // fetch all columns associated with current board 
     useEffect(() => {
@@ -42,7 +43,7 @@ function BoardDashboard() {
       .then (res => {
           if (res.ok) {
             res.json().then(taskData => {
-              console.log(taskData)
+              // console.log(taskData)
               setTasks(taskData)
             })
           } else {
@@ -88,8 +89,10 @@ function BoardDashboard() {
     }
 
     // show the Add New Task modal and set the selectedColumnId to the id of the column where the user clicked add task 
-    const showNewTaskModal = (id) => {
+    const showNewTaskModal = (id, task = null) => {
+      // console.log(task)
       setSelectedColumnId(id)
+      setSelectedTask(task)
       setShowModal(true)
     }
 
@@ -98,34 +101,55 @@ function BoardDashboard() {
       setShowModal(false)
     }
 
-    // when a new task has been added, update the tasks state with that new task 
+    // when a new task has been added or an existing task updated, update the tasks state with that updates task data 
     const handleAddNewTask = (task) => {
       // console.log(task)
-      setTasks([...tasks, task])
+      let updatedTasks 
+      const existingTask = tasks.find(t => t.id === task.id) // checks tasks to find if the task being passed in is an existing task 
+      if (existingTask) {
+        setSelectedTask(null) // reset the selectedTask state back to null since we've completed editing the task 
+        // Gather all existing tasks and the updated task 
+        updatedTasks = tasks.map(t => {
+          if (t.id === task.id) {
+            return task
+          }
+          return t
+        })
+      } else {
+        // Add the new task
+        updatedTasks = [...tasks, task]
+      }
+      setTasks(updatedTasks) // updates tasks with the updated task data
     }
 
 
     return (
       <div className="mx-auto max-w-5xl w-full h-full overflow-x-scroll p-4">
-        {showModal && <Modal childComponent={<AddTaskForm handleCloseTaskModal={handleCloseTaskModal} handleAddNewTask={handleAddNewTask} selectedColumnId={selectedColumnId}/>}/>}
-      <div className="flex flex-row justify-between items-start">
-          {columns.map(column => ( 
-              <Column 
-                key={column.id} 
-                id={column.id} 
-                columnName={column.name} 
-                handleUpdatedColumn={handleUpdatedColumn}
-                showNewTaskModal={showNewTaskModal}
-                tasks={tasks}
-                className="mb-4"/>
-          ))}
-          <button className="mt-4">
-              <span title="Add column">
-                  <BsFillPlusCircleFill size={30} onClick={handleAddColumnClick}/>
-              </span>
-          </button>
+        {showModal && <Modal childComponent={
+          <AddEditTaskForm 
+            handleCloseTaskModal={handleCloseTaskModal} 
+            handleAddNewTask={handleAddNewTask} 
+            selectedColumnId={selectedColumnId}
+            selectedTask={selectedTask}/>
+        }/>}
+          <div className="flex flex-row justify-between items-start">
+              {columns.map(column => ( 
+                  <Column 
+                    key={column.id} 
+                    id={column.id} 
+                    columnName={column.name} 
+                    handleUpdatedColumn={handleUpdatedColumn}
+                    showNewTaskModal={showNewTaskModal}
+                    tasks={tasks}
+                    className="mb-4"/>
+              ))}
+              <button className="mt-4">
+                  <span title="Add column">
+                      <BsFillPlusCircleFill size={30} onClick={handleAddColumnClick}/>
+                  </span>
+              </button>
+          </div>
       </div>
-  </div>
     )
 }
 

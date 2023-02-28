@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   resources :task_tags
   resources :tags
-  resources :tasks do
+  resources :tasks, only: [:update, :create] do
     resources :task_tags, only: [:create]
   end
   resources :columns, only: [:index, :update] do 
-    resources :tasks, only: [:index, :show, :create]
+    resources :tasks, only: [:index] #took out show and create
   end
   resources :saved_quotes
   resources :quotes
