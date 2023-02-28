@@ -122,6 +122,13 @@ function BoardDashboard() {
       setTasks(updatedTasks) // updates tasks with the updated task data
     }
 
+    const handleDeletedTask = (taskId) => {
+      console.log(taskId)
+      // filter the existing tasks to remove the deleted task and update the tasks state
+      const updatedTasks = tasks.filter(t => t.id !== taskId)
+      setTasks(updatedTasks)
+    }
+
 
     return (
       <div className="mx-auto max-w-5xl w-full h-full overflow-x-scroll p-4">
@@ -141,6 +148,7 @@ function BoardDashboard() {
                     handleUpdatedColumn={handleUpdatedColumn}
                     showNewTaskModal={showNewTaskModal}
                     tasks={tasks}
+                    handleDeletedTask={handleDeletedTask}
                     className="mb-4"/>
               ))}
               <button className="mt-4">

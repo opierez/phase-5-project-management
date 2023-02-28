@@ -3,10 +3,12 @@ import Task from "./Task";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
 
 
-function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, ...rest }) {
+function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, handleDeletedTask, ...rest }) {
 
     const [showOptions, setShowOptions] = useState(false)
     const [errors, setErrors] = useState([])
+
+    // holds the user's column name change input 
     const [currentColumnName, setCurrentColumnName] = useState(columnName)
 
     // hides/shows column options 
@@ -26,12 +28,12 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
       fetch(`/columns/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({ name: currentColumnName })
+        body: JSON.stringify({ name: currentColumnName }) // sends updated column name 
       })
       .then(res => {
         if (res.ok) {
           res.json().then(updatedColumn => {
-            handleUpdatedColumn(updatedColumn)
+            handleUpdatedColumn(updatedColumn) // cb function to update columns list to include updated/edited column 
           })
         } else {
           res.json().then(data => {
@@ -95,7 +97,12 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
       {tasks
         .filter(task => task.column_id === id) // creates a new array with all of the tasks whose id matches the column id  
         .map(task => ( // map over the filtered array and create a Task card for each task within the array 
-          <Task key={task.id} task={task} showNewTaskModal={showNewTaskModal} style={{ flex: 1 }} />
+          <Task 
+            key={task.id} 
+            task={task} 
+            showNewTaskModal={showNewTaskModal} 
+            handleDeletedTask={handleDeletedTask}
+            style={{ flex: 1 }} />
         ))
       }
       </div>

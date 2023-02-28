@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :task_tags
   resources :tags
-  resources :tasks, only: [:update, :create] do
+  resources :tasks, only: [:update, :create, :destroy] do
     resources :task_tags, only: [:create]
   end
   resources :columns, only: [:index, :update] do 
