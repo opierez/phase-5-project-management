@@ -24,6 +24,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
     const [stageTag, setStageTag] = useState("")
     const [statusTag, setStatusTag] = useState("")
 
+    // state to check if the user is editing a task so the appropriate path and method can be used in the fetch request
     const [isEditing, setIsEditing] = useState(false)
 
     // if there's a selected task being edited, update the form fields with the task selected task data 
@@ -31,6 +32,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
       if (selectedTask !== null) {
         // console.log(selectedTask)
         setIsEditing(true)
+        // maps through the selected task's tags to extract the tag that matches the appropriate category and sets each category state
         const tagNames = selectedTask.tags.map(t => { 
           if (t.category === 'priority') {
             setPriorityTag(t.name) 
@@ -39,7 +41,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
           } else if (t.category === 'status') {
             setStatusTag(t.name)
           }
-          return t.name 
+          return t.name // returns a new array with just the selected task's tag names 
         })
         setFormData({
           title: selectedTask.title,
@@ -69,7 +71,8 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
     // updates the form with the user's input values 
     const handleInputChange = (e) => {
         const { name, value } = e.target
-        console.log(value)
+        // console.log(value)
+        // checks if the name is one of the tag categories and if so, updates the form data to include the tag value in the tags array 
         if (name === 'priority-tag') {
           setPriorityTag(value)
           setFormData({ ...formData, tags: [value, stageTag, statusTag] });
@@ -79,15 +82,17 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
         } else if (name === 'stage-tag') {
             setStageTag(value)
             setFormData({ ...formData, tags: [priorityTag, value, statusTag] });
+        // if the name is not one of the tag cateogories, update the form data with the user's inputs
         } else {
             setFormData({ ...formData, [name]: value });
         }
       };
     
+    
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(formData);
-
+      
+      // checks if the task is new or an existing task being edited to send the appropriate path and method in the fetch request
       const method = isEditing ? "PATCH" : "POST"
       const path = isEditing ? `/tasks/${selectedTask.id}` : '/tasks'
       // debugger

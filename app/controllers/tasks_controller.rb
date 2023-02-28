@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     end
 
     def update 
-        task = Task.find(params[:id])
+        task = find_task
         task.update!(task_params)
 
         if params[:tags].present?
@@ -40,11 +40,21 @@ class TasksController < ApplicationController
         render json: task, status: :accepted 
     end
 
+    def destroy 
+        task = find_task
+        task.destroy
+        head :no_content
+    end
+
 
     private 
 
     def task_params 
         params.permit(:title, :description, :due_date, :column_id, :is_completed)
+    end
+
+    def find_task
+        Task.find(params[:id])
     end
 
     def find_column 

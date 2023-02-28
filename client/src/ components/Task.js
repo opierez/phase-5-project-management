@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
 
-function Task({ task, showNewTaskModal }) {
+function Task({ task, showNewTaskModal, handleDeletedTask }) {
 
     const { description, due_date, id, title, tags} = task 
 
-    const [isEditingTask, setIsEditingTask] = useState(false)
-
     // state for task options within ellipsis
     const [showOptions, setShowOptions] = useState(false)
+
+    // state for any errors returned from fetch request
+    const [errors, setErrors] = useState([])
    
     // when user clicks on ellipsis, show/hide the task options
     const handleEllipsisClick = () => {
@@ -17,8 +18,27 @@ function Task({ task, showNewTaskModal }) {
 
     // when user selects "edit task" option
     const handleEditTaskClick = (task) => {
-        showNewTaskModal(task.column_id, task)
-        setShowOptions(false)
+        showNewTaskModal(task.column_id, task) // cb function that will send the task's column id and task that's being edited to parent component 
+        setShowOptions(false) // hides the task ellipsis options
+    }
+
+    // handle deleting a task when user selects "delete task" option
+    const handleDeleteTaskClick = (task) => {
+        // console.log(task)
+        fetch(`/tasks/${task.id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json"}
+        })
+        .then (res => {
+            if (res.ok) {
+                handleDeletedTask(task.id) // cb function to update the tasks list so the deleted task is removed
+            } else {
+                res.json().then(data => {
+                    console.log(data.errors)
+                    setErrors(data.errors) 
+                })
+            }
+        })
     }
 
 
@@ -44,7 +64,7 @@ function Task({ task, showNewTaskModal }) {
                 <button className="block w-full text-left" onClick={() => handleEditTaskClick(task)}>
                     Edit Task
                 </button>
-                <button className="block w-full text-left">
+                <button className="block w-full text-left" onClick={() => handleDeleteTaskClick(task)}>
                     Delete Task
                 </button>
                 </div>
