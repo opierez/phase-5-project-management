@@ -54,16 +54,18 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
 
     // handle marking the task as complete 
     const handleTaskCompleteClick = (task) => {
-        console.log('task value when task is clicked', task.completed)
+        // console.log('task value when task is clicked', task.completed)
 
         let taskCompleteStatus 
 
+        // checks the task's completed status and updates the value to the opposite to adjust for the user selecting or deselecting the check mark icon  
         if (task.completed === false) {
             taskCompleteStatus = true
         } else if (task.completed === true) {
             taskCompleteStatus = false
         }
     
+        // updates the is_completed attribute for the task 
         fetch(`/tasks/${task.id}`, {
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
@@ -72,10 +74,9 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
         .then(res => {
             if (res.ok) {
                 res.json().then(updatedTask => {
-                    console.log('task value after fetch', updatedTask.completed)
-                    // console.log(updatedTask)
-                    setIsCompleted(updatedTask.completed)
-                    handleAddNewTask(updatedTask)
+                    // console.log('task value after fetch', updatedTask.completed)
+                    setIsCompleted(updatedTask.completed) // updates the isCompleted state so that the appropriate check mark color can be rendered based on the updated completed status that was returned
+                    handleAddNewTask(updatedTask) // cb function to update the list of tasks with the new task data 
                 })
             } else {
                 res.json().then(data => {
@@ -90,12 +91,12 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
 
 
     return (
-        <div className="max-w-sm relative rounded overflow-hidden shadow-lg">
+        <div className={`max-w-sm relative rounded overflow-hidden shadow-lg ${isCompleted ? 'opacity-40' : ''}`}>
             <div className="text-green-500 absolute top-0 left-0 mt-2 ml-2">
                 <AiOutlineCheckCircle size={20} onClick={() => handleTaskCompleteClick(task)} color={isCompleted ? 'green' : 'black'}/>
             </div>
             <div className="px-6 py-4">
-                <div className="text-base mb-2">{title}</div>
+                <div className="text-base mb-2" style={{ paddingLeft: '15px' }}>{title}</div>
                 <p className="text-gray-700 text-base">{description}</p>
                 <p>{due_date}</p>
             </div>

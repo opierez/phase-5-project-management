@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
+import {AiOutlineStar} from 'react-icons/ai'
+import {AiFillStar} from 'react-icons/ai'
 
 function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
 
@@ -96,6 +98,40 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
         })
     }
 
+    // handle marking the board as favorite 
+    const handleFavoriteClick = (boardId) => {
+        console.log(boardId)
+
+        let newFavoriteStatus
+
+        // checks the board's favorite status and updates the value to the opposite to adjust for the user selecting or deselecting the star icon
+        if (board.is_favorite === false) {
+            newFavoriteStatus = true
+        } else if (board.is_favorite === true) {
+            newFavoriteStatus = false
+        }
+
+        // updates the is_favorite attribute for the board
+        fetch(`/boards/${board.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({is_favorite: newFavoriteStatus})
+        })
+        .then(res => {
+            if (res.ok) {
+                res.json().then(updatedBoard => {
+                    // console.log(updatedBoard)
+                    handleUpdateBoards(updatedBoard)
+                })
+            } else {
+                res.json().then(data => {
+                    console.log(data.errors)
+                    setErrors(data.errors)
+                })
+            }
+        })
+    }
+
 
     return (
         <div key={board.id} className="board-widget" onClick={() => handleBoardClick(board.id)} style={{marginTop: '30px', position: 'relative'}}>
@@ -109,11 +145,21 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
                         </div>
                     </div>
                 ) : (
-                    <>
-                        <h3 className="board-title">{board.title}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div onClick={(e) => { e.stopPropagation(); handleFavoriteClick(board.id) }} style={{ cursor: 'pointer' }}>
+                                {/* if the board is marked as a favorite, the star icon will be gold. otherwise, it will be outlined black with no color fill. */}
+                                {board.is_favorite ? (
+                                    <AiFillStar style={{ color: '#FFDF01' }} />
+                                ) : (
+                                    <AiOutlineStar style={{ color: 'black' }} />
+                                )}
+                            </div>
+                            <h3 className="board-title" style={{ marginTop: '5px' }}>{board.title}</h3>
+                        </div>
                         {/* e.stopPropagation() stops the onClick event from the parent element from running and allows react icon to have it's own onClick event */}
-                        <IoEllipsisHorizontal size={20} style={{position: 'absolute', top: '0', right: '0'}} onClick={(e) => { e.stopPropagation(); handleEllipsisClick(); }} /> 
-                    </>
+                        <IoEllipsisHorizontal size={20} style={{position: 'absolute', top: '10', right: '10'}} onClick={(e) => { e.stopPropagation(); handleEllipsisClick(); }} /> 
+                    </div>
                 )}
             </div>
             {showOptions && (
