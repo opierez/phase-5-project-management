@@ -50,7 +50,7 @@ function TopNav({ user, updateUser }) {
                                 <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to={`/users/${user.id}/motivation`} onClick={handleLinkClick}>Motivation</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/login" onClick={() => { handleLinkClick(); handleLogoutClick(); }}>Sign out</Link>
+                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/" onClick={() => { handleLinkClick(); handleLogoutClick(); }}>Sign out</Link>
                             </li>
                             </>
                         // if there's no user logged in, render Login and Sign Up options in navigation 
@@ -60,7 +60,7 @@ function TopNav({ user, updateUser }) {
                                 <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/login" onClick={handleLinkClick}>Login</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/users/new" onClick={handleLinkClick}>Sign Up</Link>
+                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/signup" onClick={handleLinkClick}>Sign Up</Link>
                             </li>
                             </>
                         )}

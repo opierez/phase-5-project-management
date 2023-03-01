@@ -3,7 +3,6 @@ import { useHistory, Link } from "react-router-dom";
 
 
 function FavoritesBar({ user }) {
-    console.log(user)
 
     const [favoriteBoards, setFavoriteBoards] = useState([])
     const [errors, setErrors] = useState([])
