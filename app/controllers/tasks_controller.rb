@@ -11,12 +11,14 @@ class TasksController < ApplicationController
 
     def create
         column = find_column
-        new_task = column.tasks.create!(task_params.merge(is_completed: false))
+        new_task = column.tasks.create!(task_params)
         
         if params[:tags].length > 0
             new_task_tags = params[:tags].map do |tag_name|
                 tag = Tag.find_by(name: tag_name)
-                TaskTag.create!(task_id: new_task.id, tag_id: tag.id)
+                if tag 
+                    TaskTag.create!(task_id: new_task.id, tag_id: tag.id)
+                end
             end
         end
 

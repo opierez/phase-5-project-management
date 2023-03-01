@@ -35,7 +35,7 @@ function BoardDashboard() {
               })
             }
           })
-    }, [])
+    }, [board_id])
 
     // fetch all tasks associated with current board
     useEffect(() => {
@@ -53,7 +53,7 @@ function BoardDashboard() {
             })
           }
         })
-  }, [])
+  }, [board_id])
 
 
     // handles adding a new column to the board 
@@ -92,8 +92,10 @@ function BoardDashboard() {
     const showNewTaskModal = (id, task = null) => {
       // console.log(task)
       setSelectedColumnId(id)
-      setSelectedTask(task)
       setShowModal(true)
+      if (task !== null) {
+        setSelectedTask(task)
+      }
     }
 
     // hides the Add New Task modal after a user has submitted their new task or chose to cancel adding a new task
@@ -122,11 +124,20 @@ function BoardDashboard() {
       setTasks(updatedTasks) // updates tasks with the updated task data
     }
 
+    // handles removing the deleted task from the tasks state
     const handleDeletedTask = (taskId) => {
-      console.log(taskId)
+      // console.log(taskId)
       // filter the existing tasks to remove the deleted task and update the tasks state
       const updatedTasks = tasks.filter(t => t.id !== taskId)
       setTasks(updatedTasks)
+    }
+
+    // handles removing the deleted column from the columns state
+    const handleDeletedColumn = (columnId) => {
+      console.log(columnId)
+      // filter the existing tasks to remove the deleted task and update the tasks state
+      const updatedColumns = columns.filter(c => c.id !== columnId)
+      setColumns(updatedColumns)
     }
 
 
@@ -150,6 +161,7 @@ function BoardDashboard() {
                     tasks={tasks}
                     handleDeletedTask={handleDeletedTask}
                     handleAddNewTask={handleAddNewTask}
+                    handleDeletedColumn={handleDeletedColumn}
                     className="mb-4"/>
               ))}
               <button className="mt-4">

@@ -1,22 +1,21 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from 'react-router-dom';
-import '../styles/BoardsDashboard.css'
+import '../styles/BoardsContainer.css'
 import { BsFillPlusCircleFill } from 'react-icons/bs'
-import AddBoardForm from "./AddBoardForm";
 import Board from "./Board";
 
 
 function BoardsContainer({ user }) {
 
     const [boards, setBoards] = useState([])
-    const [showForm, setShowForm] = useState(false)
+    // const [showForm, setShowForm] = useState(false)
     const [errors, setErrors] = useState([])
     const { id } = useParams()
     // console.log(id)
 
     // fetch all boards associated with logged in user
     useEffect(() => {
-        fetch(`/users/${user.id}/boards`)
+        fetch(`/users/${id}/boards`)
             .then(res => {
                 if (res.ok) {
                     res.json().then(userBoards => {
@@ -30,9 +29,24 @@ function BoardsContainer({ user }) {
             })
     }, [user])
 
-    // handles show/hide functionality for the add board form 
-    const handleShowForm = (boolean) => {
-        setShowForm(boolean)
+    // handles adding a new board to the boards container
+    const handleAddBoardClick = () => {
+        fetch(`/users/${id}/boards`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({ title: 'Insert Board Name Here'}) // sets the board name to a default for the user to ultimately update 
+        }) 
+        .then(res => {
+            if (res.ok) {
+                res.json().then((newBoard) => {
+                    handleUpdateBoards(newBoard) // updates the boards list to include the new board
+                })
+            } else {
+                res.json().then(data => {
+                    setErrors(data.errors)
+                })
+            }
+        })
     }
 
     // handles updating the boards state after an existing board has been edited or a new board has been added
@@ -50,7 +64,7 @@ function BoardsContainer({ user }) {
         })
         } else {
         // Add new board to the boards list 
-        updatedBoards = [...boards, board]
+        updatedBoards = [board, ...boards]
         }
         setBoards(updatedBoards) // updates boards with updated boards data 
     }
@@ -61,25 +75,20 @@ function BoardsContainer({ user }) {
         const updatedBoards = boards.filter(b => b.id !== boardId) // creates a new array of all the boards except the one that was deleted
         setBoards(updatedBoards)
     }
+
+
     
 
     return(
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h4 style={{ marginRight: '10px' }}>Add Board</h4>
             <div>
-                <button onClick={() => setShowForm(true)} style={{ marginRight: '10px' }}>
+                <button onClick={handleAddBoardClick} style={{ marginRight: '10px' }}>
                 <span title="Add board">
                     <BsFillPlusCircleFill size={20}/>
                 </span>
                 </button>
             </div>
-            {showForm && (
-                <AddBoardForm 
-                    id={id} 
-                    handleShowForm={handleShowForm} 
-                    handleUpdateBoards={handleUpdateBoards}/>
-            )}
             </div>
             <div style={{ height: '500px', overflow: 'scroll'}}>
             {boards.map(board => (
@@ -87,7 +96,8 @@ function BoardsContainer({ user }) {
                     key={board.id} 
                     board={board} 
                     handleUpdateBoards={handleUpdateBoards}
-                    handleDeleteBoard={handleDeleteBoard}/>
+                    handleDeleteBoard={handleDeleteBoard}
+                />
             ))}
             </div>
         </div>

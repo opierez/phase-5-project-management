@@ -3,7 +3,7 @@ import Task from "./Task";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
 
 
-function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, handleDeletedTask, handleAddNewTask, ...rest }) {
+function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, handleDeletedTask, handleAddNewTask, handleDeletedColumn, ...rest }) {
 
     const [showOptions, setShowOptions] = useState(false)
     const [errors, setErrors] = useState([])
@@ -44,8 +44,23 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
       
     }
 
-    const handleDeleteClick = () => {
-
+    // handles deleting the column from the board
+    const handleDeleteColumnClick = (id) => {
+      // console.log(id)
+      fetch(`/columns/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json"}
+      })
+      .then (res => {
+          if (res.ok) {
+            handleDeletedColumn(id) // cb function to update the columns list so the deleted column is removed
+          } else {
+              res.json().then(data => {
+                  console.log(data.errors)
+                  setErrors(data.errors) 
+              })
+          }
+      })
     }
 
     // when user clicks on "add task" option, show the new task modal and close the column options
@@ -88,7 +103,7 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
           <button className="block w-full text-left" onClick={() => handleShowNewTaskModal(id)}>
             Add Task
           </button>
-          <button className="block w-full text-left" onClick={handleDeleteClick}>
+          <button className="block w-full text-left" onClick={() => handleDeleteColumnClick(id)}>
             Delete Column
           </button>
         </div>
