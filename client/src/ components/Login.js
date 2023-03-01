@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom';
 
-function Login() {
+function Login({ updateUser }) {
     const [formData, setFormData] = useState({
         username:'',
         password:''
@@ -30,24 +30,24 @@ function Login() {
         }
        
         // if user exists and is authenticated, create user session. if user doesn't exist or isn't authenticated, render errors. 
-        // fetch(`/login`,{
-        //   method:'POST',
-        //   headers:{'Content-Type': 'application/json'},
-        //   body:JSON.stringify(user)
-        // })
-        // .then(res => {
-        //     if(res.ok){
-        //         res.json().then(user => {
-        //             history.push('/boards') // redirect user to home after successful login
-        //             updateUser(user)}) // update user state in parent component
-        //             updateErrors() // invokes cb function to update error state in App component to empty array (removing 'not authorized' error)
-        //     }else {
-        //         res.json().then(json => {
-        //             // console.log(json.errors)
-        //             setErrors(json.errors)
-        //         })
-        //     }
-        // })
+        fetch(`/login`,{
+          method:'POST',
+          headers:{'Content-Type': 'application/json'},
+          body:JSON.stringify(user)
+        })
+        .then(res => {
+            if(res.ok){
+                res.json().then(user => {
+                    history.push(`/users/${user.id}/boards`) // redirect user to their boards after successful login
+                    updateUser(user)}) // update user state in parent component
+                    // updateErrors() // invokes cb function to update error state in App component to empty array (removing 'not authorized' error)
+            } else {
+                res.json().then(data => {
+                    // console.log(data.errors)
+                    setErrors(data.errors)
+                })
+            }
+        })
        
     }
 
@@ -61,7 +61,7 @@ function Login() {
             <label>Password</label>
             <input type='password' name='password' value={password} onChange={handleChange} />
         
-            <input type='submit' value='Log in' />
+            <button type='submit' value='Log in'>Log In</button>
         </form>
         {/* renders login errors to the user */}
         {errors ? errors.map(error => <div key={error}>{error}</div>) : null}

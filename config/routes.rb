@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :saved_quotes
   resources :quotes
   get '/users/:user_id/favorite_boards', to: "boards#favorites"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+  post "/signup", to: "users#create"
+  get '/authorized_user', to: "users#show"
   
   resources :tasks, only: [:update, :create, :destroy] do
     resources :task_tags, only: [:create]
@@ -22,8 +26,6 @@ Rails.application.routes.draw do
     resources :boards, only: [:index, :create]
   end
 
-  
-  
 
   get '*path',
     to: 'fallback#index',
