@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
+import { UserContext } from "../Contexts/UserContext";
 
+function TopNav() {
 
-function TopNav({ user, updateUser }) {
+    // used to pass down user state from parent component and to update user state to null after successfully logging out 
+    const {user, setUser} = useContext(UserContext)
 
     // checks if the navigation menu bar is open or closed
     const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +17,7 @@ function TopNav({ user, updateUser }) {
             method: "DELETE" 
         }).then((r) => {
           if (r.ok) {
-            updateUser(null);
+            setUser(null);
           }
         });
     }
@@ -27,7 +30,7 @@ function TopNav({ user, updateUser }) {
     return(
         <div>
             <header className="flex justify-between items-center text-black" style={{ backgroundColor: "#eac4d5", height: "4rem" }}>
-                <h2 className="text-2xl font-medium">StreamOpti</h2>
+                <h2 className="text-2xl font-medium">StreamEaze</h2>
                 {/* <Link to={`/users/${user.id}/profile`} className="text-2xl">
                     <AiOutlineUser className="ml-4" />
                 </Link> */}
@@ -57,7 +60,7 @@ function TopNav({ user, updateUser }) {
                         ) : (
                             <>
                             <li className="nav-item">
-                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/login" onClick={handleLinkClick}>Login</Link>
+                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/" onClick={handleLinkClick}>Login</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/signup" onClick={handleLinkClick}>Sign Up</Link>

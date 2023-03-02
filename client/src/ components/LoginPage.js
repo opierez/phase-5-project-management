@@ -1,8 +1,12 @@
 import React from "react";
 import FormHeader from "./FormHeader";
-import Login from "./Login";
+import LoginForm from "./LoginForm";
 
-function LoginPage ({ updateUser }) {
+
+
+function LoginPage () {
+
+
     return(
         <>
             <FormHeader
@@ -11,7 +15,7 @@ function LoginPage ({ updateUser }) {
                 linkName="Signup"
                 linkURL="/signup"
             />
-            <Login updateUser={updateUser}/>
+            <LoginForm />
         </>
     )
 }
