@@ -1,17 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { useParams } from 'react-router-dom';
 import '../styles/BoardsContainer.css'
 import { BsFillPlusCircleFill } from 'react-icons/bs'
 import Board from "./Board";
+import { UserContext } from "../Contexts/UserContext";
 
 
-function BoardsContainer({ user }) {
+function BoardsContainer() {
 
     const [boards, setBoards] = useState([])
     // const [showForm, setShowForm] = useState(false)
     const [errors, setErrors] = useState([])
     const { id } = useParams()
-    // console.log(id)
+    
+    // used to set user state once a user logs in successfully
+    const {user} = useContext(UserContext)
 
     // fetch all boards associated with logged in user
     useEffect(() => {

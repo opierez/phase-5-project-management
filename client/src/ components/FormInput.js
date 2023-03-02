@@ -9,7 +9,8 @@ function FormInput ({
     name,
     type,
     placeholder,
-    customClass
+    customClass, 
+    error
 }) {
 
     // input field styles
@@ -29,6 +30,7 @@ function FormInput ({
               className={fixedInputClass+customClass}
               placeholder={placeholder}
             />
+            {error ? <p className="mt-1 text-sm text-red-500">{error}</p> : null}
         </div>
     )
 }

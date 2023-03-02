@@ -1,8 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { UserContext } from "../Contexts/UserContext";
 
 
-function FavoritesBar({ user }) {
+function FavoritesBar() {
+
+    // used to pass down user state from parent component
+    const {user} = useContext(UserContext)
 
     const [favoriteBoards, setFavoriteBoards] = useState([])
     const [errors, setErrors] = useState([])
@@ -30,9 +34,9 @@ function FavoritesBar({ user }) {
     }, [user])
 
     // redirect the user to the particular board they selected 
-    const handleBoardTitleClick = (boardId) => {
-        history.push(`/users/${user.id}/boards/${boardId}`) 
-    }
+    // const handleBoardTitleClick = (boardId) => {
+    //     history.push(`/users/${user.id}/boards/${boardId}`) 
+    // }
 
     return (
         <>

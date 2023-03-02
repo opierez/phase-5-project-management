@@ -2,17 +2,19 @@ import React from "react";
 import FormHeader from "./FormHeader";
 import SignupForm from "./SignupForm";
 
-function SignupPage ({ updateUser }) {
+function SignupPage () {
     return(
-        <>
+        <div className="pb-8 h-full overflow-y-auto">
             <FormHeader
                 heading="Signup to create an account"
                 paragraph="Already have an account? "
                 linkName="Login"
                 linkUrl="/"
             />
-            <SignupForm updateUser={updateUser}/>
-        </>
+            <div className="h-full">
+                <SignupForm />
+            </div>
+        </div>
     )
 }
 
