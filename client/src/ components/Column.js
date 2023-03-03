@@ -11,8 +11,9 @@ function Column({
   handleUpdatedColumn, 
   showNewTaskModal, 
   handleDeletedTask, 
-  handleAddNewTask, 
+  handleUpdateTasks, 
   handleDeletedColumn,
+  handleUpdateTasksAfterDrop, 
   ...rest 
 }) {
 
@@ -20,7 +21,7 @@ function Column({
     // drop functionality 
     const [{ isOver }, drop] = useDrop(() => ({
       accept: ITEM_TYPE.TASK,
-      drop: (item, monitor) => {
+      drop: (item) => {
         console.log('inside usedrop:', tasks)
         const sourceColumnId = item.columnId;
         const destinationColumnId = id;
@@ -34,13 +35,13 @@ function Column({
           if (res.ok) {
             res.json().then(updatedTask => {
               console.log (updatedTask)
-              handleAddNewTask(updatedTask)
+              handleUpdateTasksAfterDrop(updatedTask)
             })
           }
         })
       },
       collect: (monitor) => ({
-        isOver: monitor.isOver(),
+        isOver: !!monitor.isOver()
       }),
     }));
 
@@ -167,7 +168,7 @@ function Column({
               task={task} 
               showNewTaskModal={showNewTaskModal} 
               handleDeletedTask={handleDeletedTask}
-              handleAddNewTask={handleAddNewTask}
+              handleUpdateTasks={handleUpdateTasks}
               columnId={id}
               style={{ flex: 1 }} />
  

@@ -123,12 +123,9 @@ function BoardDashboard() {
     }
 
     // when a new task has been added or an existing task updated, update the tasks state with that updates task data 
-    const handleAddNewTask = (task) => {
-      console.log('beginning of handleAddNewTask function', tasks)
-      // console.log(tasks)
+    const handleUpdateTasks = (task) => {
       let updatedTasks 
       const existingTask = tasks.find(t => t.id === task.id) // checks tasks to find if the task being passed in is an existing task 
-      // debugger
       if (existingTask) {
         setSelectedTask(null) // reset the selectedTask state back to null since we've completed editing the task 
         // Gather all existing tasks and the updated task 
@@ -143,7 +140,19 @@ function BoardDashboard() {
         updatedTasks = [...tasks, task]
       }
       setTasks(updatedTasks) // updates tasks with the updated task data
-      // console.log('this is updated tasks:', updatedTasks)
+    }
+
+    // handles updating tasks state after a task has been dragged and dropped to a different column 
+    const handleUpdateTasksAfterDrop = (updatedTask) => {
+      // console.log('inside handleUpdateTasksAfterDrop, tasks state:', tasks)
+      setTasks(tasks => tasks.map(task => {
+        if (task.id === updatedTask.id) {
+          return updatedTask;
+        } else {
+          return task;
+        }
+      }));
+
     }
 
     // handles removing the deleted task from the tasks state
@@ -172,7 +181,7 @@ function BoardDashboard() {
         {showModal && <Modal childComponent={
           <AddEditTaskForm 
             handleCloseTaskModal={handleCloseTaskModal} 
-            handleAddNewTask={handleAddNewTask} 
+            handleUpdateTasks={handleUpdateTasks} 
             selectedColumnId={selectedColumnId}
             selectedTask={selectedTask}/>
         }/>}
@@ -186,8 +195,9 @@ function BoardDashboard() {
                     showNewTaskModal={showNewTaskModal}
                     tasks={tasks}
                     handleDeletedTask={handleDeletedTask}
-                    handleAddNewTask={handleAddNewTask}
+                    handleUpdateTasks={handleUpdateTasks}
                     handleDeletedColumn={handleDeletedColumn}
+                    handleUpdateTasksAfterDrop={handleUpdateTasksAfterDrop}
                     className="mb-4"
                     />
               ))}

@@ -4,15 +4,15 @@ import {AiOutlineCheckCircle} from 'react-icons/ai'
 import { useDrag, useDrop } from "react-dnd"
 import ITEM_TYPE from "../data/types";
 
-function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask, columnId }) {
+function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, columnId }) {
 
     // drag functionality
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ITEM_TYPE.TASK,
         item: { id: task.id, columnId: columnId },
         collect: (monitor) => ({
-          isDragging: monitor.isDragging(),
-        }),
+          isDragging: !!monitor.isDragging()
+        })
       }));
 
       
@@ -90,7 +90,7 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask, col
                 res.json().then(updatedTask => {
                     // console.log('task value after fetch', updatedTask.completed)
                     setIsCompleted(updatedTask.completed) // updates the isCompleted state so that the appropriate check mark color can be rendered based on the updated completed status that was returned
-                    handleAddNewTask(updatedTask) // cb function to update the list of tasks with the new task data 
+                    handleUpdateTasks(updatedTask) // cb function to update the list of tasks with the new task data 
                 })
             } else {
                 res.json().then(data => {

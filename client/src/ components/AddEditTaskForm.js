@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import '../styles/AddTaskForm.css'
 
 
-function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColumnId, selectedTask }) {
+function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColumnId, selectedTask }) {
 
 
     const [formData, setFormData] = useState({
@@ -110,7 +110,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleAddNewTask, selectedColum
           res.json().then(newTask => {
             // console.log(newTask)
             setFormData({title: "", description: "", due_date: "", column_id: selectedColumnId, is_completed: false, tags: []}) // reset the form data to its initial state
-            handleAddNewTask(newTask) // cb function to update the tasks state to include the newly created task or edited task
+            handleUpdateTasks(newTask) // cb function to update the tasks state to include the newly created task or edited task
           })
         } else {
           res.json().then(data => {
