@@ -19,7 +19,7 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
     const handleBoardClick = (boardId) => {
         // console.log(boardId)
         if (!isEditingTitle) { // only redirect if the user is not editing their board title 
-            history.push(`/users/${id}/boards/${boardId}`)
+            history.push(`/boards/${boardId}`)
         }
     }
 

@@ -33,11 +33,6 @@ function FavoritesBar() {
         }
     }, [user])
 
-    // redirect the user to the particular board they selected 
-    // const handleBoardTitleClick = (boardId) => {
-    //     history.push(`/users/${user.id}/boards/${boardId}`) 
-    // }
-
     return (
         <>
             {/* if a user is logged in, render favorites board */}
@@ -49,7 +44,7 @@ function FavoritesBar() {
                     {favoriteBoards.length > 0 && (
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left', margin: '15px'}}>
                             {favoriteBoards.map( board => (
-                                <Link key={board.id} to={`/users/${user.id}/boards/${board.id}`} className="hover:cursor-pointer hover:text-blue-500">{board.title}</Link>
+                                <Link key={board.id} to={`/boards/${board.id}`} className="hover:cursor-pointer hover:text-blue-500">{board.title}</Link>
                             ))}
                         </div>
                     )}

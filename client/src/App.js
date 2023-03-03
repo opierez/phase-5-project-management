@@ -9,6 +9,8 @@ import Motivation from "./ components/Motivation";
 import LoginPage from "./ components/LoginPage";
 import SignupPage from "./ components/SignupPage";
 import { UserContext } from './Contexts/UserContext'
+import {DndProvider} from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 
 function App() {
@@ -36,34 +38,22 @@ function App() {
     })
   }, [])
 
-  // updates user state after login, signup, or logout  
-  // const updateUser = (user) => {
-  //   // console.log(user)
-  //   setUser(user)
-  // }
-
   return (
   
     <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-col">
       <UserContext.Provider value={{ user, setUser}}>
-        <TopNav 
-        // user={user} updateUser={updateUser}
-        />
+        <TopNav />
       </UserContext.Provider>
       <div className="flex flex-1 flex-row">
         {/* if there's a logged in user, render favorites bar */}
         <UserContext.Provider value={{ user }}>
-          {isUser && <FavoritesBar 
-            // user={user}
-            />} 
+          {isUser && <FavoritesBar/>} 
         </UserContext.Provider>
         <div className="flex-1 p-4 overflow-auto" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <Switch>
             <UserContext.Provider value={{ user, setUser, setIsUser}}>
               <Route path="/signup">
-                <SignupPage 
-                // updateUser={updateUser}
-                />
+                <SignupPage />
               </Route>
               <Route path="/users/:id/motivation">
                 <Motivation />
@@ -71,22 +61,19 @@ function App() {
               <Route path="/users/:id/profile">
                 <Profile />
               </Route>
-              <Route path="/users/:id/boards/:board_id">
-                <BoardDashboard />
-              </Route>
+              <DndProvider backend={HTML5Backend}>
+                <Route path="/boards/:board_id">
+                  <BoardDashboard />
+                </Route>
+              </DndProvider>
               <Route path="/users/:id/boards">
-                <BoardsContainer 
-                // user={user} 
-                />
+                <BoardsContainer/>
               </Route>
               <Route exact path="/">
-                <LoginPage 
-                // updateUser={updateUser}
-                />
+                <LoginPage/>
               </Route>
             </UserContext.Provider>
           </Switch>
-          
         </div>
       </div>
     </div>

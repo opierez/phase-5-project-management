@@ -17,6 +17,9 @@ function BoardDashboard() {
     const [selectedColumnId, setSelectedColumnId] = useState(null)
     const [selectedTask, setSelectedTask] = useState(null)
 
+    useEffect(() => {
+      console.log("Tasks updated:", tasks);
+    }, [tasks]);
 
     // fetch all columns associated with current board 
     useEffect(() => {
@@ -26,6 +29,8 @@ function BoardDashboard() {
               res.json().then(columnData => {
                 // console.log(columnData)
                 setColumns(columnData)
+                // const columnsWithIndex = setColumnsWithIndex(columnData) // adds index to columns
+                // setColumns(columnsWithIndex) // set column state
                 // setTasks(columnData.tasks)
               })
             } else {
@@ -37,6 +42,15 @@ function BoardDashboard() {
           })
     }, [board_id])
 
+    // adds an index to each column 
+    // function setColumnsWithIndex(columns) {
+    //   let index = 0;
+    //   return columns.map(column => {
+    //     index++;
+    //     return { ...column, index };
+    //   });
+    // }
+
     // fetch all tasks associated with current board
     useEffect(() => {
       fetch(`/boards/${board_id}/tasks`)
@@ -45,6 +59,7 @@ function BoardDashboard() {
             res.json().then(taskData => {
               // console.log(taskData)
               setTasks(taskData)
+              
             })
           } else {
             res.json().then(data => {
@@ -67,6 +82,8 @@ function BoardDashboard() {
       .then(res => {
         if (res.ok) {
           res.json().then(newColumn => {
+            // const columnsWithIndex = setColumnsWithIndex([...columns, newColumn]); // adds index to columns
+            // setColumns(columnsWithIndex); // updates the columns list to add the new new column 
             setColumns([...columns, newColumn]) // updates the columns list to add the new new column 
           })
         } else {
@@ -85,6 +102,8 @@ function BoardDashboard() {
         }
         return c
       })
+      // const columnsWithIndex = setColumnsWithIndex(updatedColumns); // adds index to columns
+      // setColumns(columnsWithIndex); // updates column list to include updated/edited column 
       setColumns(updatedColumns) // updates column list to include updated/edited column 
     }
 
@@ -104,8 +123,7 @@ function BoardDashboard() {
     }
 
     // when a new task has been added or an existing task updated, update the tasks state with that updates task data 
-    const handleAddNewTask = (task) => {
-      // console.log(task)
+    const handleUpdateTasks = (task) => {
       let updatedTasks 
       const existingTask = tasks.find(t => t.id === task.id) // checks tasks to find if the task being passed in is an existing task 
       if (existingTask) {
@@ -124,6 +142,19 @@ function BoardDashboard() {
       setTasks(updatedTasks) // updates tasks with the updated task data
     }
 
+    // handles updating tasks state after a task has been dragged and dropped to a different column 
+    const handleUpdateTasksAfterDrop = (updatedTask) => {
+      // console.log('inside handleUpdateTasksAfterDrop, tasks state:', tasks)
+      setTasks(tasks => tasks.map(task => {
+        if (task.id === updatedTask.id) {
+          return updatedTask;
+        } else {
+          return task;
+        }
+      }));
+
+    }
+
     // handles removing the deleted task from the tasks state
     const handleDeletedTask = (taskId) => {
       // console.log(taskId)
@@ -137,8 +168,12 @@ function BoardDashboard() {
       console.log(columnId)
       // filter the existing tasks to remove the deleted task and update the tasks state
       const updatedColumns = columns.filter(c => c.id !== columnId)
+      // const columnsWithIndex = setColumnsWithIndex(updatedColumns);
+      // setColumns(columnsWithIndex);
       setColumns(updatedColumns)
     }
+
+    
 
 
     return (
@@ -146,7 +181,7 @@ function BoardDashboard() {
         {showModal && <Modal childComponent={
           <AddEditTaskForm 
             handleCloseTaskModal={handleCloseTaskModal} 
-            handleAddNewTask={handleAddNewTask} 
+            handleUpdateTasks={handleUpdateTasks} 
             selectedColumnId={selectedColumnId}
             selectedTask={selectedTask}/>
         }/>}
@@ -160,9 +195,11 @@ function BoardDashboard() {
                     showNewTaskModal={showNewTaskModal}
                     tasks={tasks}
                     handleDeletedTask={handleDeletedTask}
-                    handleAddNewTask={handleAddNewTask}
+                    handleUpdateTasks={handleUpdateTasks}
                     handleDeletedColumn={handleDeletedColumn}
-                    className="mb-4"/>
+                    handleUpdateTasksAfterDrop={handleUpdateTasksAfterDrop}
+                    className="mb-4"
+                    />
               ))}
               <button className="mt-4">
                   <span title="Add column">
