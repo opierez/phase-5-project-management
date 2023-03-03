@@ -1,9 +1,22 @@
-import React, {useState, useEffect} from "react";
+import React, {Fragment, useState, useEffect, useRef} from "react";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
 import {AiOutlineCheckCircle} from 'react-icons/ai'
+import { useDrag, useDrop } from "react-dnd"
+import ITEM_TYPE from "../data/types";
 
-function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
+function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask, columnId }) {
 
+    // drag functionality
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: ITEM_TYPE.TASK,
+        item: { id: task.id, columnId: columnId },
+        collect: (monitor) => ({
+          isDragging: monitor.isDragging(),
+        }),
+      }));
+
+      
+    // deconstructing the task prop being passed down
     const { description, due_date, id, title, tags} = task 
 
     // state for task options within ellipsis
@@ -12,6 +25,7 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
     // state for any errors returned from fetch request
     const [errors, setErrors] = useState([])
 
+    // keeping track of the task's completed status
     const [isCompleted, setIsCompleted] = useState(false)
 
     useEffect(() => {
@@ -85,12 +99,12 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
                 })
             }
         })
-        
-        
     }
-
+    
 
     return (
+        <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move',}}>
+        <div className="bg-white p-2 rounded-md shadow-md mb-2">
         <div className={`max-w-sm relative rounded overflow-hidden shadow-lg ${isCompleted ? 'opacity-40' : ''}`}>
             <div className="text-green-500 absolute top-0 left-0 mt-2 ml-2">
                 <AiOutlineCheckCircle size={20} onClick={() => handleTaskCompleteClick(task)} color={isCompleted ? 'green' : 'black'}/>
@@ -121,6 +135,8 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleAddNewTask }) {
                 </div>
             ) : null}
             <div style={{ flex: 1 }}></div>
+        </div>
+        </div>
         </div>
     )
 }

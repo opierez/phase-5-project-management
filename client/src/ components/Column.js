@@ -1,9 +1,51 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Task from "./Task";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
+import { useDrop } from 'react-dnd'
+import ITEM_TYPE from "../data/types";
+
+function Column({ 
+  id, 
+  tasks, 
+  columnName, 
+  handleUpdatedColumn, 
+  showNewTaskModal, 
+  handleDeletedTask, 
+  handleAddNewTask, 
+  handleDeletedColumn,
+  ...rest 
+}) {
 
 
-function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, handleDeletedTask, handleAddNewTask, handleDeletedColumn, ...rest }) {
+    // drop functionality 
+    const [{ isOver }, drop] = useDrop(() => ({
+      accept: ITEM_TYPE.TASK,
+      drop: (item, monitor) => {
+        console.log('inside usedrop:', tasks)
+        const sourceColumnId = item.columnId;
+        const destinationColumnId = id;
+        console.log(`Task ${item.id} dropped from column ${sourceColumnId} to column ${destinationColumnId}`);
+        fetch(`/tasks/${item.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ column_id: id }),
+        })
+        .then(res => {
+          if (res.ok) {
+            res.json().then(updatedTask => {
+              console.log (updatedTask)
+              handleAddNewTask(updatedTask)
+            })
+          }
+        })
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+      }),
+    }));
+
+    const columnRef = useRef(null);
+
 
     const [showOptions, setShowOptions] = useState(false)
     const [errors, setErrors] = useState([])
@@ -69,10 +111,15 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
       showNewTaskModal(id)
       setShowOptions(false)
     }
+  
+  
+
 
 
   return (
-    <div {...rest} className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
+    <div {...rest} 
+    ref={columnRef} 
+    className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
         marginRight: "1rem",
         position: "relative",
         height: "580px", 
@@ -108,19 +155,23 @@ function Column({ id, tasks, columnName, handleUpdatedColumn, showNewTaskModal, 
           </button>
         </div>
       ) : null}
-      <div style={{ flex: 1 }}>
+      <div 
+      ref={drop} 
+      style={{ backgroundColor: isOver ? 'lightgray' : 'white', flex: 1 }}
+      >
       {tasks
         .filter(task => task.column_id === id) // creates a new array with all of the tasks whose id matches the column id  
         .map(task => ( // map over the filtered array and create a Task card for each task within the array 
-          <Task 
-            key={task.id} 
-            task={task} 
-            showNewTaskModal={showNewTaskModal} 
-            handleDeletedTask={handleDeletedTask}
-            handleAddNewTask={handleAddNewTask}
-            style={{ flex: 1 }} />
-        ))
-      }
+            <Task 
+              key={task.id} 
+              task={task} 
+              showNewTaskModal={showNewTaskModal} 
+              handleDeletedTask={handleDeletedTask}
+              handleAddNewTask={handleAddNewTask}
+              columnId={id}
+              style={{ flex: 1 }} />
+ 
+        ))}
       </div>
     </div>
   )      

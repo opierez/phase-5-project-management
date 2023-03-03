@@ -17,6 +17,9 @@ function BoardDashboard() {
     const [selectedColumnId, setSelectedColumnId] = useState(null)
     const [selectedTask, setSelectedTask] = useState(null)
 
+    useEffect(() => {
+      console.log("Tasks updated:", tasks);
+    }, [tasks]);
 
     // fetch all columns associated with current board 
     useEffect(() => {
@@ -26,6 +29,8 @@ function BoardDashboard() {
               res.json().then(columnData => {
                 // console.log(columnData)
                 setColumns(columnData)
+                // const columnsWithIndex = setColumnsWithIndex(columnData) // adds index to columns
+                // setColumns(columnsWithIndex) // set column state
                 // setTasks(columnData.tasks)
               })
             } else {
@@ -37,6 +42,15 @@ function BoardDashboard() {
           })
     }, [board_id])
 
+    // adds an index to each column 
+    // function setColumnsWithIndex(columns) {
+    //   let index = 0;
+    //   return columns.map(column => {
+    //     index++;
+    //     return { ...column, index };
+    //   });
+    // }
+
     // fetch all tasks associated with current board
     useEffect(() => {
       fetch(`/boards/${board_id}/tasks`)
@@ -45,6 +59,7 @@ function BoardDashboard() {
             res.json().then(taskData => {
               // console.log(taskData)
               setTasks(taskData)
+              
             })
           } else {
             res.json().then(data => {
@@ -67,6 +82,8 @@ function BoardDashboard() {
       .then(res => {
         if (res.ok) {
           res.json().then(newColumn => {
+            // const columnsWithIndex = setColumnsWithIndex([...columns, newColumn]); // adds index to columns
+            // setColumns(columnsWithIndex); // updates the columns list to add the new new column 
             setColumns([...columns, newColumn]) // updates the columns list to add the new new column 
           })
         } else {
@@ -85,6 +102,8 @@ function BoardDashboard() {
         }
         return c
       })
+      // const columnsWithIndex = setColumnsWithIndex(updatedColumns); // adds index to columns
+      // setColumns(columnsWithIndex); // updates column list to include updated/edited column 
       setColumns(updatedColumns) // updates column list to include updated/edited column 
     }
 
@@ -105,9 +124,11 @@ function BoardDashboard() {
 
     // when a new task has been added or an existing task updated, update the tasks state with that updates task data 
     const handleAddNewTask = (task) => {
-      // console.log(task)
+      console.log('beginning of handleAddNewTask function', tasks)
+      // console.log(tasks)
       let updatedTasks 
       const existingTask = tasks.find(t => t.id === task.id) // checks tasks to find if the task being passed in is an existing task 
+      // debugger
       if (existingTask) {
         setSelectedTask(null) // reset the selectedTask state back to null since we've completed editing the task 
         // Gather all existing tasks and the updated task 
@@ -122,6 +143,7 @@ function BoardDashboard() {
         updatedTasks = [...tasks, task]
       }
       setTasks(updatedTasks) // updates tasks with the updated task data
+      // console.log('this is updated tasks:', updatedTasks)
     }
 
     // handles removing the deleted task from the tasks state
@@ -137,8 +159,12 @@ function BoardDashboard() {
       console.log(columnId)
       // filter the existing tasks to remove the deleted task and update the tasks state
       const updatedColumns = columns.filter(c => c.id !== columnId)
+      // const columnsWithIndex = setColumnsWithIndex(updatedColumns);
+      // setColumns(columnsWithIndex);
       setColumns(updatedColumns)
     }
+
+    
 
 
     return (
@@ -162,7 +188,8 @@ function BoardDashboard() {
                     handleDeletedTask={handleDeletedTask}
                     handleAddNewTask={handleAddNewTask}
                     handleDeletedColumn={handleDeletedColumn}
-                    className="mb-4"/>
+                    className="mb-4"
+                    />
               ))}
               <button className="mt-4">
                   <span title="Add column">
