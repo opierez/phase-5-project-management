@@ -3,35 +3,35 @@ import { useHistory, Link } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 
 
-function FavoritesBar() {
+function FavoritesBar({ favoriteBoards }) {
 
     // used to pass down user state from parent component
     const {user} = useContext(UserContext)
 
-    const [favoriteBoards, setFavoriteBoards] = useState([])
+    // const [favoriteBoards, setFavoriteBoards] = useState([])
     const [errors, setErrors] = useState([])
 
     const history = useHistory()
 
     // fetch all of the favorite boards for the user, if user exists
-    useEffect(() => {
-        if (user !== null) {
-            fetch(`/users/${user.id}/favorite_boards`)
-            .then(res => {
-                if (res.ok) {
-                    res.json().then(favBoards => {
-                        // console.log(favBoards)
-                        setFavoriteBoards(favBoards)
-                    })
-                } else {
-                    res.json().then(data => {
-                        console.log(data.errors)
-                        setErrors(data.errors)
-                    })
-                }
-            })
-        }
-    }, [user])
+    // useEffect(() => {
+    //     if (user !== null) {
+    //         fetch(`/users/${user.id}/favorite_boards`)
+    //         .then(res => {
+    //             if (res.ok) {
+    //                 res.json().then(favBoards => {
+    //                     // console.log(favBoards)
+    //                     setFavoriteBoards(favBoards)
+    //                 })
+    //             } else {
+    //                 res.json().then(data => {
+    //                     console.log(data.errors)
+    //                     setErrors(data.errors)
+    //                 })
+    //             }
+    //         })
+    //     }
+    // }, [user])
 
     return (
         <>

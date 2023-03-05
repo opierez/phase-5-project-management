@@ -22,10 +22,10 @@ function Column({
     const [{ isOver }, drop] = useDrop(() => ({
       accept: ITEM_TYPE.TASK,
       drop: (item) => {
-        console.log('inside usedrop:', tasks)
-        const sourceColumnId = item.columnId;
-        const destinationColumnId = id;
-        console.log(`Task ${item.id} dropped from column ${sourceColumnId} to column ${destinationColumnId}`);
+        // console.log('inside usedrop:', tasks)
+        // const sourceColumnId = item.columnId;
+        // const destinationColumnId = id;
+        // console.log(`Task ${item.id} dropped from column ${sourceColumnId} to column ${destinationColumnId}`);
         fetch(`/tasks/${item.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ function Column({
         .then(res => {
           if (res.ok) {
             res.json().then(updatedTask => {
-              console.log (updatedTask)
+              // console.log (updatedTask)
               handleUpdateTasksAfterDrop(updatedTask)
             })
           }

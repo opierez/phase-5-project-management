@@ -50,7 +50,7 @@ function TopNav() {
                                 <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to={`/users/${user.id}/boards`} onClick={handleLinkClick}>My Boards</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to={`/users/${user.id}/motivation`} onClick={handleLinkClick}>Motivation</Link>
+                                <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to={`/users/${user.id}/inspiration`} onClick={handleLinkClick}>Inspiration</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="px-3 py-2 flex items-center text-gray-600 hover:bg-gray-200 hover:text-gray-800" to="/" onClick={() => { handleLinkClick(); handleLogoutClick(); }}>Sign out</Link>
