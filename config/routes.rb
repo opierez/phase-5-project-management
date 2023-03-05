@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  resources :displayed_quotes
   resources :task_tags
   resources :tags
-  resources :saved_quotes
-  resources :quotes
+  resources :quotes, only: [:index] 
   get '/users/:user_id/favorite_boards', to: "boards#favorites"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"

@@ -1,4 +1,4 @@
 class Quote < ApplicationRecord
-    has_many :saved_quotes
-    has_many :users, through: :saved_quotes 
+    has_many :displayed_quotes 
+    has_many :users, through: :displayed_quotes
 end

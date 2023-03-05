@@ -1,0 +1,2 @@
+class DisplayedQuotesController < ApplicationController
+end

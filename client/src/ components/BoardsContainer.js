@@ -6,7 +6,7 @@ import Board from "./Board";
 import { UserContext } from "../Contexts/UserContext";
 
 
-function BoardsContainer() {
+function BoardsContainer({ updateFavoritesBar }) {
 
     const [boards, setBoards] = useState([])
     // const [showForm, setShowForm] = useState(false)
@@ -100,6 +100,7 @@ function BoardsContainer() {
                     board={board} 
                     handleUpdateBoards={handleUpdateBoards}
                     handleDeleteBoard={handleDeleteBoard}
+                    updateFavoritesBar={updateFavoritesBar}
                 />
             ))}
             </div>

@@ -4,7 +4,7 @@ import {IoEllipsisHorizontal} from 'react-icons/io5'
 import {AiOutlineStar} from 'react-icons/ai'
 import {AiFillStar} from 'react-icons/ai'
 
-function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
+function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBar }) {
 
     // state for hiding/showing Board options 
     const [showOptions, setShowOptions] = useState(false)
@@ -122,6 +122,7 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard }) {
                 res.json().then(updatedBoard => {
                     // console.log(updatedBoard)
                     handleUpdateBoards(updatedBoard)
+                    updateFavoritesBar(updatedBoard)
                 })
             } else {
                 res.json().then(data => {

@@ -1,2 +1,0 @@
-class SavedQuotesController < ApplicationController
-end
