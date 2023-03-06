@@ -118,9 +118,10 @@ function Column({
 
 
   return (
-    <div {...rest} 
-    ref={columnRef} 
-    className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
+    <div 
+    // {...rest} 
+      ref={columnRef} 
+      className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
         marginRight: "1rem",
         position: "relative",
         height: "580px", 

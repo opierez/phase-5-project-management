@@ -29,9 +29,6 @@ function BoardDashboard() {
               res.json().then(columnData => {
                 // console.log(columnData)
                 setColumns(columnData)
-                // const columnsWithIndex = setColumnsWithIndex(columnData) // adds index to columns
-                // setColumns(columnsWithIndex) // set column state
-                // setTasks(columnData.tasks)
               })
             } else {
               res.json().then(data => {
@@ -41,15 +38,6 @@ function BoardDashboard() {
             }
           })
     }, [board_id])
-
-    // adds an index to each column 
-    // function setColumnsWithIndex(columns) {
-    //   let index = 0;
-    //   return columns.map(column => {
-    //     index++;
-    //     return { ...column, index };
-    //   });
-    // }
 
     // fetch all tasks associated with current board
     useEffect(() => {
@@ -82,8 +70,6 @@ function BoardDashboard() {
       .then(res => {
         if (res.ok) {
           res.json().then(newColumn => {
-            // const columnsWithIndex = setColumnsWithIndex([...columns, newColumn]); // adds index to columns
-            // setColumns(columnsWithIndex); // updates the columns list to add the new new column 
             setColumns([...columns, newColumn]) // updates the columns list to add the new new column 
           })
         } else {
@@ -102,8 +88,6 @@ function BoardDashboard() {
         }
         return c
       })
-      // const columnsWithIndex = setColumnsWithIndex(updatedColumns); // adds index to columns
-      // setColumns(columnsWithIndex); // updates column list to include updated/edited column 
       setColumns(updatedColumns) // updates column list to include updated/edited column 
     }
 
@@ -157,7 +141,6 @@ function BoardDashboard() {
 
     // handles removing the deleted task from the tasks state
     const handleDeletedTask = (taskId) => {
-      // console.log(taskId)
       // filter the existing tasks to remove the deleted task and update the tasks state
       const updatedTasks = tasks.filter(t => t.id !== taskId)
       setTasks(updatedTasks)
@@ -168,13 +151,10 @@ function BoardDashboard() {
       console.log(columnId)
       // filter the existing tasks to remove the deleted task and update the tasks state
       const updatedColumns = columns.filter(c => c.id !== columnId)
-      // const columnsWithIndex = setColumnsWithIndex(updatedColumns);
-      // setColumns(columnsWithIndex);
       setColumns(updatedColumns)
     }
 
     
-
 
     return (
       <div className="mx-auto max-w-5xl w-full h-full overflow-x-scroll p-4">

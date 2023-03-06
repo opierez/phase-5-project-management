@@ -11,7 +11,7 @@ puts "🌱 Seeding data..."
 # User.destroy_all 
 
 
-# Users
+# # Users
 # olivia = User.create(username: "olive", password: "1234", first_name: "Olivia", last_name: "Nunez")
 # nicole = User.create(username: "nikki", password: "1234", first_name: "Nicole", last_name: "Saunders")
 # miguel = User.create(username: "mike", password: "1234", first_name: "Miguel", last_name: "Phillipe")
@@ -39,15 +39,15 @@ puts "🌱 Seeding data..."
 
 
 # # Tags
-# tag_low_priority = Tag.create(name: "Low Priority", category: "priority", color: "#66BA7A")
-# tag_medium_priority = Tag.create(name: "Medium Priority", category: "priority", color: "#FFB452")
-# tag_high_priority = Tag.create(name: "High Priority", category: "priority", color: "#E65C5C")
-# tag_status_on_track = Tag.create(name: "On track", category: "status", color: "#7FB03F")
-# tag_status_off_track = Tag.create(name: "Off track", category: "status", color: "#CC1111")
-# tag_stage_research = Tag.create(name: "Research", category: "stage", color: "#AAC8FA")
-# tag_stage_develop = Tag.create(name: "Development", category: "stage", color: "#FFE97D")
-# tag_stage_testing = Tag.create(name: "Testing", category: "stage", color: "#FFC4D8")
-# tag_stage_testing = Tag.create(name: "Implementation", category: "stage", color: "#6369B8")
+# tag_low_priority = Tag.create(name: "Low Priority", category: "priority", color: "#9EE2C0", text_color: '#000000')
+# tag_medium_priority = Tag.create(name: "Medium Priority", category: "priority", color: "#FF8B00", text_color: '#000000')
+# tag_high_priority = Tag.create(name: "High Priority", category: "priority", color: "#9E1000", text_color: '#FFFFFF')
+# tag_status_on_track = Tag.create(name: "On track", category: "status", color: "#6EB65F", text_color: '#000000')
+# tag_status_off_track = Tag.create(name: "Off track", category: "status", color: "#7E1907", text_color: '#FFFFFF')
+# tag_stage_research = Tag.create(name: "Research", category: "stage", color: "#BAD8FF", text_color: '#000000')
+# tag_stage_develop = Tag.create(name: "Development", category: "stage", color: "#FFE97D", text_color: '#000000')
+# tag_stage_testing = Tag.create(name: "Testing", category: "stage", color: "#FFC4D8", text_color: '#000000')
+# tag_stage_testing = Tag.create(name: "Implementation", category: "stage", color: "#4C50A4", text_color: '#FFFFFF')
 
 # # Task Tags
 # olivia_board2_column1_task1_tag1 = TaskTag.create(task_id: olivia_board2_column1_task2.id, tag_id: tag_high_priority.id)
