@@ -111,15 +111,23 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
             // console.log(newTask)
             setFormData({title: "", description: "", due_date: "", column_id: selectedColumnId, is_completed: false, tags: []}) // reset the form data to its initial state
             handleUpdateTasks(newTask) // cb function to update the tasks state to include the newly created task or edited task
+            handleCloseTaskModal(); // cb function to close the new task modal 
           })
         } else {
           res.json().then(data => {
+            console.log(data.errors)
             setErrors(data.errors)
           })
         }
       })
-      handleCloseTaskModal(); // cb function to close the new task modal 
     };
+
+    // renders errors for each input field that may return an error 
+    const renderError = (field) => {
+      return errors.find(error => error.toLowerCase().includes(field)) && (
+        <p style={{ color: 'red' }}>{errors.find(error => error.toLowerCase().includes(field))}</p>
+      )
+    }
     
     return (
         <div className="modal-overlay">
@@ -141,6 +149,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
                     value={formData.title}
                     onChange={handleInputChange}
                   />
+                  {renderError("title")}
                 </div>
                 <div className="form-group">
                   <label htmlFor="description">Description:</label>
@@ -150,6 +159,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
                     value={formData.description}
                     onChange={handleInputChange}
                   ></textarea>
+                  {renderError("description")}
                 </div>
                 <div className="form-group">
                   <label htmlFor="due_date">Due Date:</label>
@@ -160,6 +170,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
                     value={formData.due_date}
                     onChange={handleInputChange}
                   />
+                  {renderError("due date")}
                 </div>
                 <div className="form-group">
                   <label>Priority Tags:</label>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function FormHeader({ heading, paragraph, linkName, linkURL="#" }) {
+function FormHeader({ heading, paragraph, linkName, linkURL }) {
 
     return (
         <div className="mb-10">
