@@ -165,7 +165,15 @@ function BoardDashboard() {
             selectedColumnId={selectedColumnId}
             selectedTask={selectedTask}/>
         }/>}
-          <div className="flex flex-row justify-between items-start">
+        <div className={columns.length === 0 ? "grid grid-cols-4 gap-4 h-screen" : "flex flex-row justify-between items-start"}>
+          {columns.length === 0 ?
+            <button className="flex justify-end mt-4">
+              <span title="Add column">
+                <BsFillPlusCircleFill size={30} onClick={handleAddColumnClick}/>
+              </span>
+              <span className="ml-2">Add Column</span>
+            </button> :
+            <>
               {columns.map(column => ( 
                   <Column 
                     key={column.id} 
@@ -186,7 +194,9 @@ function BoardDashboard() {
                       <BsFillPlusCircleFill size={30} onClick={handleAddColumnClick}/>
                   </span>
               </button>
-          </div>
+            </>
+          }
+        </div>
       </div>
     )
 }

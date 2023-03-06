@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 
 
+
 function FavoritesBar({ favoriteBoards }) {
 
     // used to pass down user state from parent component
@@ -11,7 +12,7 @@ function FavoritesBar({ favoriteBoards }) {
 
 
     return (
-        <>
+        <div>
             {/* if a user is logged in, render favorites board */}
             {user !== null && 
                 <nav className="w-64 h-full" style={{ backgroundColor: "white" }}>
@@ -27,7 +28,7 @@ function FavoritesBar({ favoriteBoards }) {
                     )}
                 </nav>
             }
-        </>
+        </div>
     )
 }
 

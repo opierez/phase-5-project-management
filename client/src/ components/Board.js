@@ -141,8 +141,10 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBa
                         />
                     </div> 
                 </div>
-                {/* e.stopPropagation() stops the onClick event from the parent element from running and allows react icon to have it's own onClick event */}
-                <IoEllipsisHorizontal size={20} style={{position: 'absolute', top: '10', right: '10'}} onClick={(e) => { e.stopPropagation(); handleEllipsisClick(); }} /> 
+                <button>
+                    {/* e.stopPropagation() stops the onClick event from the parent element from running and allows react icon to have it's own onClick event */}
+                    <IoEllipsisHorizontal size={20} style={{position: 'absolute', top: '10', right: '10'}} onClick={(e) => { e.stopPropagation(); handleEllipsisClick(); }} /> 
+                </button>
             </div>
             {showOptions && (
                 <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
