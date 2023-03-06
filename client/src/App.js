@@ -68,7 +68,7 @@ function App() {
 
   return (
   
-    <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-col">
+    <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-col" style={{ height: "auto" }}>
       <UserContext.Provider value={{ user, setUser}}>
         <TopNav />
       </UserContext.Provider>
@@ -77,7 +77,7 @@ function App() {
         <UserContext.Provider value={{ user }}>
           {isUser && <FavoritesBar favoriteBoards={favoriteBoards}/>} 
         </UserContext.Provider>
-        <div className="flex-1 p-4 overflow-auto" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
+        <div className="flex-1 p-4 overflow-auto">
           <Switch>
             <UserContext.Provider value={{ user, setUser, setIsUser}}>
               <Route path="/signup">
@@ -106,7 +106,7 @@ function App() {
       </div>
     </div>
 
-  );
+  )
 }
 
 export default App;

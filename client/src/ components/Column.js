@@ -13,8 +13,7 @@ function Column({
   handleDeletedTask, 
   handleUpdateTasks, 
   handleDeletedColumn,
-  handleUpdateTasksAfterDrop, 
-  ...rest 
+  handleUpdateTasksAfterDrop
 }) {
 
 
@@ -119,7 +118,6 @@ function Column({
 
   return (
     <div 
-    // {...rest} 
       ref={columnRef} 
       className="w-72 rounded-lg bg-gray-100 shadow-md p-4 flex-shrink-0 flex-grow-0" style={{
         marginRight: "1rem",
@@ -148,7 +146,8 @@ function Column({
         <IoEllipsisHorizontal size={20} />
       </button>
       {showOptions ? (
-        <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
+        // zIndex ensures the show options will appear without the tasks appearing transparently in the background
+        <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md" style={{ zIndex: 10 }}> 
           <button className="block w-full text-left" onClick={() => handleShowNewTaskModal(id)}>
             Add Task
           </button>

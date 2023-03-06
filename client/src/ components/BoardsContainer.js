@@ -70,13 +70,13 @@ function BoardsContainer({ updateFavoritesBar }) {
     return(
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-                <button onClick={handleAddBoardClick} style={{ marginRight: '10px' }}>
-                <span title="Add board">
-                    <BsFillPlusCircleFill size={20}/>
-                </span>
-                </button>
-            </div>
+                <div>
+                    <button onClick={handleAddBoardClick} style={{ marginRight: '10px' }}>
+                        <span title="Add board">
+                            <BsFillPlusCircleFill size={20}/>
+                        </span>
+                    </button>
+                </div>
             </div>
             <div style={{ height: '500px', overflow: 'scroll'}}>
             {boards.map(board => (

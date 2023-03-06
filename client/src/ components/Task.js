@@ -126,12 +126,12 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, co
             </button>
             {showOptions ? (
                 <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
-                <button className="block w-full text-left" onClick={() => handleEditTaskClick(task)}>
-                    Edit Task
-                </button>
-                <button className="block w-full text-left" onClick={() => handleDeleteTaskClick(task)}>
-                    Delete Task
-                </button>
+                    <button className="block w-full text-left" onClick={() => handleEditTaskClick(task)}>
+                        Edit Task
+                    </button>
+                    <button className="block w-full text-left" onClick={() => handleDeleteTaskClick(task)}>
+                        Delete Task
+                    </button>
                 </div>
             ) : null}
             <div style={{ flex: 1 }}></div>
