@@ -59,17 +59,11 @@ function App() {
     }
   }, [user])
 
-  // updates the Favorites Bar with any boards that have been favorited or unfavored 
-  const updateFavoritesBar = (updatedBoard) => {
-    console.log(updatedBoard)
-    let updatedFavBoards
-    const existingFavBoard = favoriteBoards.find(b => b.id === updatedBoard.id) // checks favorites boards to find out if the board being passed in is an existing favorites board
-    if (existingFavBoard) {
-      updatedFavBoards = favoriteBoards.filter(b => b.id !== updatedBoard.id)
-    } else {
-      updatedFavBoards = [...favoriteBoards, updatedBoard]
-    }
-    setFavoriteBoards(updatedFavBoards)
+  // updates the Favorites Bar with boards that are marked as favorited
+  const updateFavoritesBar = (updatedFavBoards) => {
+    // console.log(updatedFavBoards)
+    const filterFavBoards = updatedFavBoards.filter(b => b.is_favorite === true)
+    setFavoriteBoards(filterFavBoards)
   }
 
   return (
