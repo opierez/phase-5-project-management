@@ -2,12 +2,8 @@ class BoardsController < ApplicationController
 
     
     def index 
-        if params[:user_id]
-            user = find_user
-            boards = user.boards 
-        else 
-            boards = Board.all 
-        end
+        user = find_user
+        boards = user.boards.order(:title) 
         render json: boards, status: :ok 
     end
 
@@ -18,9 +14,16 @@ class BoardsController < ApplicationController
     end
 
     def update 
+        # find the board and update it 
         board = Board.find(params[:id])
         board.update!(board_params)
-        render json: board, status: :accepted 
+
+        # find the current logged in user and their boards sorted alphabetically by title 
+        user = @current_user
+        updated_boards = user.boards.order(:title)
+
+        # render all of the boards including the updated board 
+        render json: updated_boards, status: :accepted 
     end
 
     def destroy 
@@ -31,7 +34,7 @@ class BoardsController < ApplicationController
 
     # custom action for getting all the favorite boards for a user
     def favorites 
-        favorite_boards = Board.favorite_boards(params[:user_id])
+        favorite_boards = Board.favorite_boards(params[:user_id]).order(:title)
         render json: favorite_boards, status: :ok 
     end
 

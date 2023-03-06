@@ -42,7 +42,7 @@ function BoardsContainer({ updateFavoritesBar }) {
         .then(res => {
             if (res.ok) {
                 res.json().then((newBoard) => {
-                    handleUpdateBoards(newBoard) // updates the boards list to include the new board
+                    handleUpdateBoards([newBoard, ...boards]) // updates the boards list to include the new board at the beginning or the array
                 })
             } else {
                 res.json().then(data => {
@@ -53,23 +53,8 @@ function BoardsContainer({ updateFavoritesBar }) {
     }
 
     // handles updating the boards state after an existing board has been edited or a new board has been added
-    const handleUpdateBoards = (board) => {
-        // console.log(board)
-        let updatedBoards
-        const existingBoard = boards.find(b => b.id === board.id) // checks boards to find out if the board being passed in is an existing board
-        if (existingBoard) {
-        // Gather all existing boards and the updated board
-        updatedBoards = boards.map(b => {
-            if (b.id === board.id) {
-            return board
-            } 
-            return b
-        })
-        } else {
-        // Add new board to the boards list 
-        updatedBoards = [board, ...boards]
-        }
-        setBoards(updatedBoards) // updates boards with updated boards data 
+    const handleUpdateBoards = (updatedBoards) => {
+        setBoards(updatedBoards)
     }
 
     // updates the boards to remove the deleted board 

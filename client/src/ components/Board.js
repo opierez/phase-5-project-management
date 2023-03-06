@@ -47,9 +47,9 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBa
         })
         .then (res => {
             if (res.ok) {
-                res.json().then(updatedBoard => {
-                    console.log(updatedBoard)
-                    handleUpdateBoards(updatedBoard) // cb function to update the list of boards with the 
+                res.json().then(updatedBoards => {
+                    console.log(updatedBoards)
+                    handleUpdateBoards(updatedBoards) // cb function to update the list of boards to include the updated board 
                 })
             } else {
                 res.json().then(data => {
@@ -103,10 +103,10 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBa
         })
         .then(res => {
             if (res.ok) {
-                res.json().then(updatedBoard => {
-                    // console.log(updatedBoard)
-                    handleUpdateBoards(updatedBoard)
-                    updateFavoritesBar(updatedBoard)
+                res.json().then(updatedFavBoards => {
+                    // console.log(updatedFavBoards)
+                    handleUpdateBoards(updatedFavBoards) // cb function to update the boards list with the updated favorited boards
+                    updateFavoritesBar(updatedFavBoards) // cb function to update the favorites bar with the updated favorited boards
                 })
             } else {
                 res.json().then(data => {
