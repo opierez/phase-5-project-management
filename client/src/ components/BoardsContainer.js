@@ -37,7 +37,7 @@ function BoardsContainer({ updateFavoritesBar }) {
         fetch(`/users/${id}/boards`, {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({ title: 'Insert Board Name Here'}) // sets the board name to a default for the user to ultimately update 
+            body: JSON.stringify({ title: 'Insert Name Here'}) // sets the board name to a default for the user to ultimately update 
         }) 
         .then(res => {
             if (res.ok) {

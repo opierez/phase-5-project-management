@@ -17,11 +17,20 @@
     text-decoration: none;
 }
 
+.logo-container {
+    display: flex;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
 .logo-text{
     font-size: 22.5px;
     font-weight: 800;
     color: rgb(0, 0, 0);
-    margin-left: 1.5%;
+    margin-left: 8%;
 }
 
 .nav-links{

@@ -5,15 +5,14 @@ import { UserContext } from "../Contexts/UserContext";
 import '../styles/TopNav.css'
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {RiCloseLine} from 'react-icons/ri';
+import { GiSplashyStream } from 'react-icons/gi'
 
 function TopNav() {
 
     // used to pass down user state from parent component and to update user state to null after successfully logging out 
     const {user, setUser} = useContext(UserContext)
 
-    // checks if the navigation menu bar is open or closed
-    // const [isOpen, setIsOpen] = useState(false);
-
+    // checks if nav menu is shown or hidden 
     const [showMenu, setShowMenu] = useState(false)
 
     function toggleMenu(){
@@ -35,20 +34,20 @@ function TopNav() {
         });
     }
 
-    // if user clicks on one of the navigation menu options, close the navigation menu 
-    // function handleLinkClick() {
-    //     setIsOpen(false);
-    // }
-
     return(
         <nav className='navbar-container'>
-            <h2 className="logo-text">StreamEaze</h2>
+            <div className="logo-container">
+                <h2 className="logo-text">StreamEaze</h2>
+                <div className="icon-container">
+                    <GiSplashyStream size={25}/>
+                </div>
+            </div>
             <menu>
                 <ul className='nav-links grow' id={showMenu ? "mobile-show" : "mobile-hide"}>
                     {user && Object.keys(user).length !== 0 ? (
                         <>
                             <li><Link to={`/users/${user.id}/boards`} onClick={closeMenu}>My Boards</Link></li>
-                            <li><Link to={`/users/${user.id}/inspiration`} onClick={closeMenu}>Inspiration</Link></li>
+                            <li><Link to={`/users/${user.id}/inspiration`} onClick={closeMenu}>Daily Inspiration</Link></li>
                             <li><Link to="/" onClick={() => { closeMenu(); handleLogoutClick(); }}>Sign out</Link></li>
                         </>
                         // if there's no user logged in, render Login and Sign Up options in navigation 
