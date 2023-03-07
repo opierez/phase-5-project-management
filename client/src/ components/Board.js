@@ -84,7 +84,7 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBa
 
     // handle marking the board as favorite 
     const handleFavoriteClick = (boardId) => {
-        console.log(boardId)
+        // console.log(boardId)
 
         let newFavoriteStatus
 
