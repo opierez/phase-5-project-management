@@ -18,7 +18,7 @@ function BoardDashboard() {
     const [selectedTask, setSelectedTask] = useState(null)
 
     useEffect(() => {
-      console.log("Tasks updated:", tasks);
+      // console.log("Tasks updated:", tasks);
     }, [tasks]);
 
     // fetch all columns associated with current board 
