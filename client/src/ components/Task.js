@@ -100,6 +100,17 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, co
             }
         })
     }
+
+    // if the due date is less than or equal to 2 days, the due date text should be red. if the due date has passed, the due date text should be red and bold 
+    const dueDateStyles = () => {
+        const msPerDay = 24 * 60 * 60 * 1000; // calcs milliseconds/day (hours in a day * mins in an hour * seconds in a min * ms in a second)
+        const daysUntilDue = Math.round((new Date(due_date) - new Date()) / msPerDay); // 
+        
+        return {
+          color: daysUntilDue <= 2 ? 'red' : 'black',
+          fontWeight: daysUntilDue <= 0 ? 'bold' : 'normal'
+        };
+    } 
     
 
     return (
@@ -110,9 +121,9 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, co
                 <AiOutlineCheckCircle size={20} onClick={() => handleTaskCompleteClick(task)} color={isCompleted ? 'green' : 'black'}/>
             </div>
             <div className="px-6 py-4">
-                <div className="text-base mb-2" style={{ paddingLeft: '15px' }}>{title}</div>
-                <p className="text-gray-700 text-base">{description}</p>
-                <p>{due_date}</p>
+                <strong className="text-base mb-2 font-bold" style={{ paddingLeft: '15px' }}>{title}</strong>
+                <p className="text-gray-700 text-base" style={{ marginTop: '10px' }}>{description}</p>
+                <p style={{ marginTop: '10px', ...dueDateStyles() }}>{new Date(due_date).toLocaleDateString("en-US")}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
                 {tags.map(t => {
