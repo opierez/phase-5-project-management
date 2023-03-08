@@ -19,7 +19,7 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, co
     // deconstructing the task prop being passed down
     const { description, due_date, id, title, tags} = task 
 
-    console.log(tags)
+    // console.log(tags)
 
     // state for task options within ellipsis
     const [showOptions, setShowOptions] = useState(false)

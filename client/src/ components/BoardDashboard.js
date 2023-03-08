@@ -154,6 +154,11 @@ function BoardDashboard() {
       setColumns(updatedColumns)
     }
 
+    // resets the selected task to null if a user cancels editing their selected task
+    const resetSelectedTaskStatus = () => {
+      setSelectedTask(null)
+    }
+
     
 
     return (
@@ -163,7 +168,8 @@ function BoardDashboard() {
             handleCloseTaskModal={handleCloseTaskModal} 
             handleUpdateTasks={handleUpdateTasks} 
             selectedColumnId={selectedColumnId}
-            selectedTask={selectedTask}/>
+            selectedTask={selectedTask}
+            resetSelectedTaskStatus={resetSelectedTaskStatus}/>
         }/>}
         <div className={columns.length === 0 ? "grid grid-cols-4 gap-4 h-screen" : "flex flex-row justify-between items-start"}>
           {columns.length === 0 ?

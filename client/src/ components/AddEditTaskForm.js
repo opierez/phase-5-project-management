@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import '../styles/AddTaskForm.css'
 
 
-function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColumnId, selectedTask }) {
+function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColumnId, selectedTask, resetSelectedTaskStatus }) {
 
 
     const [formData, setFormData] = useState({
@@ -128,6 +128,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
         if (res.ok) {
           res.json().then(newTask => {
             // console.log(newTask)
+            setIsEditing(false)
             setFormData({title: "", description: "", due_date: "", column_id: selectedColumnId, is_completed: false, tags: []}) // reset the form data to its initial state
             handleUpdateTasks(newTask) // cb function to update the tasks state to include the newly created task or edited task
             handleCloseTaskModal(); // cb function to close the new task modal 
@@ -147,13 +148,25 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
         <p style={{ color: 'red' }}>{errors.find(error => error.toLowerCase().includes(field))}</p>
       )
     }
+
+    // resets the form data to its initial state if a user cancels editing their task or submits their edits 
+    const resetFormData = () => {
+      console.log('form successfully reset')
+      resetSelectedTaskStatus()
+      setFormData({title: "", description: "", due_date: "", column_id: selectedColumnId, is_completed: false, tags: []}) 
+    }
+
+    useEffect(() => {
+      console.log(formData);
+    }, [formData]);
+    
     
     return (
         <div className="modal-overlay">
           <div className="modal-container">
             <div className="modal-header">
               <h3>Task Details</h3>
-              <button className="modal-close" onClick={handleCloseTaskModal}>
+              <button className="modal-close" onClick={() => { resetFormData(); handleCloseTaskModal()}}>
                 &times;
               </button>
             </div>
@@ -227,7 +240,7 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
               </div>
               <div className="modal-footer">
                 <button type="submit" className="form-button">Submit</button>
-                <button type="button" className="form-button" onClick={handleCloseTaskModal}>Cancel</button>
+                <button type="button" className="form-button" onClick={() => { resetFormData(); handleCloseTaskModal()}}>Cancel</button>
               </div>
             </form>
           </div>
