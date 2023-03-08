@@ -15,27 +15,27 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
     })
 
     // state for each tag category (used to render the form's tag options)
-    // const [priorityTags, setPriorityTags] = useState([])
-    // const [stageTags, setStageTags] = useState([])
-    // const [statusTags, setStatusTags] = useState([])
+    const [priorityTags, setPriorityTags] = useState([])
+    const [stageTags, setStageTags] = useState([])
+    const [statusTags, setStatusTags] = useState([])
 
-    const priorityTags = [
-      {id: 1, name: 'Low Priority', category: 'priority', color: '#9EE2C0', text_color: '#000000'}, 
-      {id: 2, name: 'Medium Priority', category: 'priority', color: '#9E1000', text_color: '#000000'},
-      {id: 3, name: 'High Priority', category: 'priority', color: '#9E1000', text_color: '#FFFFFF'}
-    ]
+    // const priorityTags = [
+    //   {id: 1, name: 'Low Priority', category: 'priority', color: '#9EE2C0', text_color: '#000000'}, 
+    //   {id: 2, name: 'Medium Priority', category: 'priority', color: '#9E1000', text_color: '#000000'},
+    //   {id: 3, name: 'High Priority', category: 'priority', color: '#9E1000', text_color: '#FFFFFF'}
+    // ]
 
-    const statusTags = [
-      {id: 4, name: 'On track', category: 'status', color: '#6EB65F', text_color: '#000000'}, 
-      {id: 5, name: 'Off track', category: 'status', color: '#7E1907', text_color: '#FFFFFF'},
-    ]
+    // const statusTags = [
+    //   {id: 4, name: 'On track', category: 'status', color: '#6EB65F', text_color: '#000000'}, 
+    //   {id: 5, name: 'Off track', category: 'status', color: '#7E1907', text_color: '#FFFFFF'},
+    // ]
 
-    const stageTags = [
-      {id: 6, name: 'Research', category: 'stage', color: '#BAD8FF', text_color: '#000000'}, 
-      {id: 7, name: 'Development', category: 'stage', color: '#FFE97D', text_color: '#000000'},
-      {id: 8, name: 'Testing', category: 'stage', color: '#FFC4D8', text_color: '#000000'},
-      {id: 9, name: 'Implementation', category: 'stage', color: '#4C50A4', text_color: '#FFFFFF'},
-    ]
+    // const stageTags = [
+    //   {id: 6, name: 'Research', category: 'stage', color: '#BAD8FF', text_color: '#000000'}, 
+    //   {id: 7, name: 'Development', category: 'stage', color: '#FFE97D', text_color: '#000000'},
+    //   {id: 8, name: 'Testing', category: 'stage', color: '#FFC4D8', text_color: '#000000'},
+    //   {id: 9, name: 'Implementation', category: 'stage', color: '#4C50A4', text_color: '#FFFFFF'},
+    // ]
 
 
     // state for each tag field
@@ -78,17 +78,17 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
   
 
     // fetch all tags from the database and sort by category using state
-    // useEffect(() => {
-    //     fetch(`/tags`)
-    //         .then(res => res.json())
-    //         .then(tagData => {
-                // console.log(tagData)
+    useEffect(() => {
+        fetch(`/tags`)
+            .then(res => res.json())
+            .then(tagData => {
+                console.log(tagData)
                 // set state for each tag category 
-                // setPriorityTags(tagData.priority)
-                // setStageTags(tagData.stage)
-    //             setStatusTags(tagData.status)
-    //         })
-    // }, [])
+                setPriorityTags(tagData.priority)
+                setStageTags(tagData.stage)
+                setStatusTags(tagData.status)
+            })
+    }, [])
 
     // updates the form with the user's input values 
     const handleInputChange = (e) => {
