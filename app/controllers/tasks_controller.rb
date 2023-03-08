@@ -18,9 +18,6 @@ class TasksController < ApplicationController
                 tag = Tag.find_by(name: tag_name)
                 if tag 
                     TaskTag.create!(task_id: new_task.id, tag_id: tag.id)
-                else 
-                    new_tag = Tag.create!(tag_params)
-                    TaskTag.create!(task_id: new_task.id, tag_id: new_tag.id)
                 end
             end
         end

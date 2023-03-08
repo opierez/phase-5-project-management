@@ -124,7 +124,12 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, co
             </div>
             <div className="px-6 py-4">
                 <strong className="text-base mb-2 font-bold" style={{ paddingLeft: '15px' }}>{title}</strong>
-                <p className="text-gray-700 text-base" style={{ marginTop: '10px' }}>{description}</p>
+                <details>
+                    <summary className="text-gray-700 text-base" style={{ marginTop: '10px' }}>
+                        <span>Description:</span>
+                    </summary>
+                    <p className="text-gray-700 text-base" style={{ marginTop: '10px' }}>{description}</p>
+                </details>
                 <p style={{ marginTop: '10px', ...dueDateStyles() }}>{new Date(due_date).toLocaleDateString("en-US")}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
