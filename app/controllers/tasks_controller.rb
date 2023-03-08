@@ -18,6 +18,9 @@ class TasksController < ApplicationController
                 tag = Tag.find_by(name: tag_name)
                 if tag 
                     TaskTag.create!(task_id: new_task.id, tag_id: tag.id)
+                else 
+                    new_tag = Tag.create!(tag_params)
+                    TaskTag.create!(task_id: new_task.id, tag_id: new_tag.id)
                 end
             end
         end
@@ -53,6 +56,10 @@ class TasksController < ApplicationController
 
     def task_params 
         params.permit(:title, :description, :due_date, :column_id, :is_completed)
+    end
+
+    def tag_params 
+        params.permit(:name, :category, :color, :text_color)
     end
 
     def find_task
