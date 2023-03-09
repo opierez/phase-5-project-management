@@ -117,44 +117,44 @@ function Task({ task, showNewTaskModal, handleDeletedTask, handleUpdateTasks, co
 
     return (
         <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move',}}>
-        <div className="bg-white p-2 rounded-md shadow-md mb-2">
-        <div className={`max-w-sm relative rounded overflow-hidden shadow-lg ${isCompleted ? 'opacity-40' : ''}`}>
-            <div className="text-green-500 absolute top-0 left-0 mt-2 ml-2">
-                <AiOutlineCheckCircle size={20} onClick={() => handleTaskCompleteClick(task)} color={isCompleted ? 'green' : 'black'}/>
-            </div>
-            <div className="px-6 py-4">
-                <strong className="text-base mb-2 font-bold" style={{ paddingLeft: '15px' }}>{title}</strong>
-                <details>
-                    <summary className="text-gray-700 text-base" style={{ marginTop: '10px' }}>
-                        <span>Description:</span>
-                    </summary>
-                    <p className="text-gray-700 text-base" style={{ marginTop: '10px' }}>{description}</p>
-                </details>
-                <p style={{ marginTop: '10px', ...dueDateStyles() }}>{new Date(due_date).toLocaleDateString("en-US")}</p>
-            </div>
-            <div className="px-6 pt-4 pb-2">
-                {tags.map(t => {
-                    return (
-                        <span key={t.id} style={{backgroundColor: t.color, color:t.text_color}} className={`inline-block rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2`}>{t.name}</span>
-                    )
-                })}
-            </div>
-            <button className="absolute top-0 right-0 mt-2 mr-2" onClick={handleEllipsisClick}>
-                <IoEllipsisHorizontal size={20} />
-            </button>
-            {showOptions ? (
-                <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
-                    <button className="block w-full text-left" onClick={() => handleEditTaskClick(task)}>
-                        Edit Task
+            <div className="bg-white p-2 rounded-md shadow-md mb-2">
+                <div className={`max-w-sm relative rounded overflow-hidden shadow-lg ${isCompleted ? 'opacity-40' : ''}`}>
+                    <div className="text-green-500 absolute top-0 left-0 mt-2 ml-2">
+                        <AiOutlineCheckCircle size={20} onClick={() => handleTaskCompleteClick(task)} color={isCompleted ? 'green' : 'black'} style={{ cursor: 'pointer' }}/>
+                    </div>
+                    <div className="px-6 py-4">
+                        <strong className="text-base mb-2 font-bold" style={{ paddingLeft: '15px' }}>{title}</strong>
+                        <details>
+                            <summary className="text-gray-700 text-base" style={{ marginTop: '10px', cursor: 'pointer' }}>
+                                <span>Description:</span>
+                            </summary>
+                            <p className="text-gray-700 text-base" style={{ marginTop: '10px' }}>{description}</p>
+                        </details>
+                        <p style={{ marginTop: '10px', ...dueDateStyles() }}>{new Date(due_date).toLocaleDateString("en-US")}</p>
+                    </div>
+                    <div className="px-6 pt-4 pb-2">
+                        {tags.map(t => {
+                            return (
+                                <span key={t.id} style={{backgroundColor: t.color, color:t.text_color}} className={`inline-block rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2`}>{t.name}</span>
+                            )
+                        })}
+                    </div>
+                    <button className="absolute top-0 right-0 mt-2 mr-2" onClick={handleEllipsisClick}>
+                        <IoEllipsisHorizontal size={20} />
                     </button>
-                    <button className="block w-full text-left" onClick={() => handleDeleteTaskClick(task)}>
-                        Delete Task
-                    </button>
+                    {showOptions ? (
+                        <div className="absolute top-8 right-0 bg-white shadow-md p-2 rounded-md">
+                            <button className="block w-full text-left" onClick={() => handleEditTaskClick(task)}>
+                                Edit Task
+                            </button>
+                            <button className="block w-full text-left" onClick={() => handleDeleteTaskClick(task)}>
+                                Delete Task
+                            </button>
+                        </div>
+                    ) : null}
+                    <div style={{ flex: 1 }}></div>
                 </div>
-            ) : null}
-            <div style={{ flex: 1 }}></div>
-        </div>
-        </div>
+            </div>
         </div>
     )
 }
