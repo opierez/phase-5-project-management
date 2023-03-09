@@ -1,0 +1,11 @@
+.quote-container {
+    min-height: calc(100vh - 10rem);
+}
+
+.quote-box {
+    border-image: linear-gradient(to right, #FFDF01, #FF8008);
+    border-image-slice: 1;
+    border-width: 3px;
+    border-style: solid;
+}
+  

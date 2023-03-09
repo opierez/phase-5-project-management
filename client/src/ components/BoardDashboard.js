@@ -162,7 +162,7 @@ function BoardDashboard() {
     
 
     return (
-      <div className="mx-auto max-w-5xl w-full h-full overflow-x-scroll p-4">
+      <div className="mx-auto max-w-8xl w-full h-full overflow-x-scroll p-4" style={{ position: "relative" }}>
         {showModal && <Modal childComponent={
           <AddEditTaskForm 
             handleCloseTaskModal={handleCloseTaskModal} 
@@ -173,7 +173,7 @@ function BoardDashboard() {
         }/>}
         <div className={columns.length === 0 ? "grid grid-cols-4 gap-4 h-screen" : "flex flex-row justify-between items-start"}>
           {columns.length === 0 ?
-            <button className="flex justify-end mt-4">
+            <button className="absolute flex items-center">
               <span title="Add column">
                 <BsFillPlusCircleFill size={30} onClick={handleAddColumnClick}/>
               </span>

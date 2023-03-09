@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import {IoEllipsisHorizontal} from 'react-icons/io5'
 import {AiOutlineStar} from 'react-icons/ai'
 import {AiFillStar} from 'react-icons/ai'
+import '../styles/Board.css'
 
 function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBar }) {
 

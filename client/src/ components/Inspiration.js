@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState } from "react";
 import { UserContext } from "../Contexts/UserContext";
-import '../styles/Motivation.css'
+import '../styles/Inspiration.css'
 
 
 function Inspiration() {
@@ -32,7 +32,7 @@ function Inspiration() {
     
     return(
         <div className="quote-container bg-white-200 flex items-center justify-center px-5 py-5 mb-40 pb-20">
-            <div className="w-full mx-auto rounded-lg bg-white shadow-lg px-5 pt-5 pb-10 text-gray-800" style={{maxWidth: "500px"}}>
+            <div className="quote-box w-full mx-auto rounded-lg bg-white shadow-lg px-5 pt-5 pb-10 text-gray-800" style={{maxWidth: "500px"}}>
                 <div className="w-full mb-10">
                     <div className="text-3xl text-indigo-500 text-left leading-tight h-3">“</div>
                     <p className="text-lg text-gray-600 text-center px-5">{quoteOfTheDay.text}</p>

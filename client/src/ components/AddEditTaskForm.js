@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import '../styles/AddTaskForm.css'
+import '../styles/AddEditTaskForm.css'
 
 
 function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColumnId, selectedTask, resetSelectedTaskStatus }) {
@@ -18,25 +18,6 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
     const [priorityTags, setPriorityTags] = useState([])
     const [stageTags, setStageTags] = useState([])
     const [statusTags, setStatusTags] = useState([])
-
-    // const priorityTags = [
-    //   {id: 1, name: 'Low Priority', category: 'priority', color: '#9EE2C0', text_color: '#000000'}, 
-    //   {id: 2, name: 'Medium Priority', category: 'priority', color: '#9E1000', text_color: '#000000'},
-    //   {id: 3, name: 'High Priority', category: 'priority', color: '#9E1000', text_color: '#FFFFFF'}
-    // ]
-
-    // const statusTags = [
-    //   {id: 4, name: 'On track', category: 'status', color: '#6EB65F', text_color: '#000000'}, 
-    //   {id: 5, name: 'Off track', category: 'status', color: '#7E1907', text_color: '#FFFFFF'},
-    // ]
-
-    // const stageTags = [
-    //   {id: 6, name: 'Research', category: 'stage', color: '#BAD8FF', text_color: '#000000'}, 
-    //   {id: 7, name: 'Development', category: 'stage', color: '#FFE97D', text_color: '#000000'},
-    //   {id: 8, name: 'Testing', category: 'stage', color: '#FFC4D8', text_color: '#000000'},
-    //   {id: 9, name: 'Implementation', category: 'stage', color: '#4C50A4', text_color: '#FFFFFF'},
-    // ]
-
 
     // state for each tag field
     const [priorityTag, setPriorityTag] = useState("")
@@ -151,15 +132,10 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
 
     // resets the form data to its initial state if a user cancels editing their task or submits their edits 
     const resetFormData = () => {
-      console.log('form successfully reset')
+      // console.log('form successfully reset')
       resetSelectedTaskStatus()
       setFormData({title: "", description: "", due_date: "", column_id: selectedColumnId, is_completed: false, tags: []}) 
-    }
-
-    useEffect(() => {
-      console.log(formData);
-    }, [formData]);
-    
+    }    
     
     return (
         <div className="modal-overlay">
@@ -173,69 +149,74 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
                 <div className="form-group">
-                  <label htmlFor="title">Title:</label>
+                  <label htmlFor="title" className="block text-gray-700 font-bold mb-2">Title:</label>
                   <input
                     type="text"
                     id="title"
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                   {renderError("title")}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="description">Description:</label>
+                  <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Description:</label>
                   <textarea
                     id="description"
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   ></textarea>
                   {renderError("description")}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="due_date">Due Date:</label>
+                  <label htmlFor="due_date" className="block text-gray-700 font-bold mb-2">Due Date:</label>
                   <input
                     type="date"
                     id="due_date"
                     name="due_date"
                     value={formData.due_date}
                     onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                   {renderError("due date")}
                 </div>
-                <div className="form-group">
-                  <label>Priority Tags:</label>
-                  <select name="priority-tag" value={priorityTag} onChange={handleInputChange}>
-                    <option>Choose tags...</option>
-                    {priorityTags.map((tag) => (
-                      <option key={tag.id}>
-                        {tag.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Stage Tags:</label>
-                  <select name="stage-tag" value={stageTag} onChange={handleInputChange}>
-                    <option>Choose tags...</option>
-                    {stageTags.map((tag) => (
-                      <option key={tag.id}>
-                        {tag.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Status Tags:</label>
-                  <select name="status-tag" value={statusTag} onChange={handleInputChange}>
-                    <option>Choose tags...</option>
-                    {statusTags.map((tag) => (
-                      <option key={tag.id}>
-                        {tag.name}
-                      </option>
-                    ))}
-                  </select>
+                <div className="tag-container">
+                  <div className="form-group">
+                    <label className="block text-gray-700 font-bold mb-2">Priority Tags:</label>
+                    <select name="priority-tag" value={priorityTag} onChange={handleInputChange}>
+                      <option>Choose tags...</option>
+                      {priorityTags.map((tag) => (
+                        <option key={tag.id}>
+                          {tag.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label className="block text-gray-700 font-bold mb-2">Stage Tags:</label>
+                    <select name="stage-tag" value={stageTag} onChange={handleInputChange}>
+                      <option>Choose tags...</option>
+                      {stageTags.map((tag) => (
+                        <option key={tag.id}>
+                          {tag.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label className="block text-gray-700 font-bold mb-2">Status Tags:</label>
+                    <select name="status-tag" value={statusTag} onChange={handleInputChange}>
+                      <option>Choose tags...</option>
+                      {statusTags.map((tag) => (
+                        <option key={tag.id}>
+                          {tag.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
               <div className="modal-footer">

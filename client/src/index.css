@@ -9,3 +9,12 @@ body {
     font-family: "Montserrat", sans-serif;
     background: white;
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.flex-1 {
+    min-height: 100vh;
+}
