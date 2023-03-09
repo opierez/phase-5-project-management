@@ -220,8 +220,8 @@ function AddEditTaskForm({ handleCloseTaskModal, handleUpdateTasks, selectedColu
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="submit" className="form-button" style={{ backgroundColor: '#DAD6FF'}}>Submit</button>
-                <button type="button" className="form-button" style={{ backgroundColor: '#DAD6FF'}} onClick={() => { resetFormData(); handleCloseTaskModal()}}>Cancel</button>
+                <button type="submit" className="form-button">Submit</button>
+                <button type="button" className="form-button" onClick={() => { resetFormData(); handleCloseTaskModal()}}>Cancel</button>
               </div>
             </form>
           </div>

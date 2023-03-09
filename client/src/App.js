@@ -77,7 +77,7 @@ function App() {
         <UserContext.Provider value={{ user }}>
           {isUser && <FavoritesBar favoriteBoards={favoriteBoards}/>} 
         </UserContext.Provider>
-        <div className="flex-1 p-4 overflow-auto">
+        <div className="flex-1 p-4 overflow-auto bg-gray-100" style={{ height: "calc(100vh - 64px)" }}>
           <Switch>
             <UserContext.Provider value={{ user, setUser, setIsUser}}>
               <Route path="/signup">

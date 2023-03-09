@@ -68,7 +68,7 @@ function BoardsContainer({ updateFavoritesBar }) {
     
 
     return(
-        <div>
+        <div className="boards-container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <button onClick={handleAddBoardClick} style={{ marginRight: '10px' }}>
@@ -78,7 +78,7 @@ function BoardsContainer({ updateFavoritesBar }) {
                     </button>
                 </div>
             </div>
-            <div style={{ height: '500px', overflow: 'scroll'}}>
+            <div style={{ height: '800px', overflow: 'scroll'}}>
             {boards.map(board => (
                 <Board 
                     key={board.id} 
