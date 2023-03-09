@@ -120,10 +120,10 @@ function Board({ board, handleUpdateBoards, handleDeleteBoard, updateFavoritesBa
 
 
     return (
-        <div key={board.id} className="board-widget" onClick={(e) => handleBoardClick(board.id, e)} style={{marginTop: '30px', position: 'relative'}}>
+        <div key={board.id} className="board-widget" onClick={(e) => handleBoardClick(board.id, e)} style={{marginTop: '30px', position: 'relative', cursor: 'pointer' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div onClick={(e) => { e.stopPropagation(); handleFavoriteClick(board.id) }} style={{ cursor: 'pointer' }}>
+                    <div onClick={(e) => { e.stopPropagation(); handleFavoriteClick(board.id) }} >
                         {/* if the board is marked as a favorite, the star icon will be gold. otherwise, it will be outlined black with no color fill. */}
                         {board.is_favorite ? (
                             <AiFillStar style={{ color: '#FFDF01' }} />
