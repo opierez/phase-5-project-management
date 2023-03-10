@@ -16,7 +16,7 @@ const loaderVariants = {
 
 function Loader() {
     return(
-        <div style={{ fontWeight: "bold", fontSize: "2rem" }}>
+        <div style={{ fontWeight: "bold", fontSize: "2rem", color: 'white' }}>
             Loading
             <motion.span
                 style={{ display: "inline-block", marginLeft: "0.2rem" }}

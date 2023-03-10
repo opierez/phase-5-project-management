@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState } from "react";
 import { UserContext } from "../Contexts/UserContext";
 import '../styles/Inspiration.css'
 import Loader from "./Loader";
+import artem_kniaz_unsplash from '../style-images/artem_kniaz_unsplash1.jpg'
 
 
 function Inspiration() {
@@ -36,7 +37,8 @@ function Inspiration() {
 
     
     return(
-        <div className="quote-container bg-white-200 flex items-center justify-center px-5 py-5 mb-40 pb-20">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="quote-container bg-white-200 flex items-center justify-center px-5 py-5 mb-40 pb-20" style={{backgroundImage: `url(${artem_kniaz_unsplash})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: 'calc(96vh - 50px)', minWidth: '100%', marginBottom: '0px'}}>
             {isLoading ? (
                 <Loader />
             ) : (
@@ -52,6 +54,7 @@ function Inspiration() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     )
 }
