@@ -1,5 +1,5 @@
 # StreamEaze 
-A project management tool that helps individuals organize and track their tasks where users can create boards, which are visual representations of their projects, with columns for each stage of the workflow, such as "To-do," "In Progress," and "Done." Users can add tasks to these boards, set deadlines, add notes to provide additional context, and tags to appropriately label the status, stage, and priority. By using this task management application, individuals can improve their productivity adn efficiency by streamlinging their workflows with ease.
+A project management tool that helps individuals organize and track their tasks. Users can create project boards with columns representing each stage of their workflow, such as "To-do," "In Progress," and "Done” where they can add their tasks, set deadlines, add notes to provide additional context, and assign tags to appropriately label the status, stage, and priority of the task. By using this task management application, individuals can improve their productivity and efficiency by streamlining their workflows with ease.
 
 ## How to access
 Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
@@ -11,7 +11,7 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 - Navigate away from the site and return with their account info still populated: Utilizing authorization, users can leave the app and return later without having to log in again, ensuring their account information remains populated and accessible even after navigating away from the site
 - Create, edit, and delete project boards: Users can create project boards to manage different projects, edit them as needed, and delete them when no longer required
 - View all project boards in alphabetized order on a single page: Users can easily access all their project boards on a single page and sort them alphabetically for ease of use
-- Mark projects as favorite: Users can mark their most important projects as favorites, making them easily accessible in the Favorites bar and sorted alphabetically for convenience 
+- Mark projects as favorites: Users can mark their most important projects as favorites, making them easily accessible in the Favorites bar and sorted alphabetically for convenience 
 - Create and edit workflow columns: Users can create columns to represent each stage of their project's workflow and edit them as necessary 
 - Delete columns: Users can delete columns they no longer need or that no longer apply to their project workflow 
 - Create tasks with the following available details: title, description, due date, priority tags, stage tags, and status tags to manage their workflow efficiently
@@ -66,7 +66,7 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 - Some of the task card css was taken from this Tailwind resource: https://v1.tailwindcss.com/components/cards 
 - Inspirational quotes were taken from this API: https://forum.freecodecamp.org/t/free-api-inspirational-quotes-json-with-code-examples/311373
 - Quote component styling was taken from this resource: https://tailwindcomponents.com/component/quote-box 
-- Some of the Login/Signup form styles taken from this resource: https://www.loginradius.com/blog/engineering/guest-post/modern-login-signup-form-tailwindcss-react/ 
+- Some of the Login/Signup form styles and component architecture taken from this resource: https://www.loginradius.com/blog/engineering/guest-post/modern-login-signup-form-tailwindcss-react/ 
 - Text and background colors were checked for web accessibility using this resource: https://webaim.org/resources/contrastchecker/
 - Inspiration page background image: Photo by <a href="https://unsplash.com/@artem_kniaz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Artem Kniaz</a> on <a href="https://unsplash.com/photos/q07EnXxRVUs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   
