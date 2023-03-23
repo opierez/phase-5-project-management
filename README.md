@@ -26,13 +26,15 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 ## Backend Feature Highlights
 - Authentication
 - Authorization
+- Password protection 
 - Multiple has_many_through relationships
 - Seed data from external API
 - Custom routes
+- RESTful routing conventions 
 - Custom controller and model methods
 - Database query optimizations
-- Validation 
-- CRUD actions
+- Active Record validations
+- Full CRUD actions on multiple models 
 
 ## Frontend Feature Highlights 
 - Authorization
@@ -45,6 +47,8 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 - Algorithms
 - Form submissions 
 - Client-side HTTP requests
+- Updating front end state upon successfull response from client-side HTTP requests 
+
 
 ## Technologies
 
