@@ -23,6 +23,29 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 - See a daily inspirational quote: Users will see a daily inspirational quote to help keep them motivated and focused on their project goals 
 - Due date text color change: Users will see a red due date for tasks that are nearing their deadline and a bold, red due date for tasks that are past their deadline, reminding them of the task's urgency and priority
 
+## Backend Feature Highlights
+- Authentication
+- Authorization
+- Multiple has_many_through relationships
+- Seed data from external API
+- Custom routes
+- Custom controller and model methods
+- Database query optimizations
+- Validation 
+- CRUD actions
+
+## Frontend Feature Highlights 
+- Authorization
+- Validation error rendering
+- Custom CSS
+- React hooks: useEffect, useContext, useState
+- React Router DOM: BrowserRouter, Switch, Route, Link
+- Responsive navigation bar
+- Drag and drop functionality using React DnD
+- Algorithms
+- Form submissions 
+- Client-side HTTP requests
+
 ## Technologies
 
 - React
