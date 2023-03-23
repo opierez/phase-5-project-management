@@ -8,7 +8,7 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 ## User Functionality
 - Sign up for an account: Users can create a personal account to access the app's features and save their project information securely
 - Login/Logout of an existing account: Users can easily log in and out of their account to manage their projects as needed
-- Navigate away from the site and return with their account info still populated: Utilizing authorization, users can leave the app and return later without having to log in again, ensuring their account information remains populated and accessible even after navigating away from the site
+- User Authorization: Users can navigate away from the site and return with their account information still populated, ensuring their account information remains accessible even after navigating away from the site
 - Create, edit, and delete project boards: Users can create project boards to manage different projects, edit them as needed, and delete them when no longer required
 - View all project boards in alphabetized order on a single page: Users can easily access all their project boards on a single page and sort them alphabetically for ease of use
 - Mark projects as favorites: Users can mark their most important projects as favorites, making them easily accessible in the Favorites bar and sorted alphabetically for convenience 
