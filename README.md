@@ -44,7 +44,6 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 - React Router DOM: BrowserRouter, Switch, Route, Link
 - Responsive navigation bar
 - Drag and drop functionality using React DnD
-- Algorithms
 - Form submissions 
 - Client-side HTTP requests
 - Updating front end state upon successfull response from client-side HTTP requests 
