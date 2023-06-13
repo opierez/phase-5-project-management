@@ -55,6 +55,7 @@ Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
 - Ruby
 - Rails 
 - Active Record
+- PostgreSQL
 - Tailwind CSS 
 - Javascript
 - JSON
