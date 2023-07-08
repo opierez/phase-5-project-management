@@ -2,13 +2,11 @@ require 'rest-client'
 
 puts "🌱 Seeding data..."
 
-# clear out all existing data (except for quotes data)
-# TaskTag.destroy_all
-# Tag.destroy_all
-# Task.destroy_all
-# Column.destroy_all
-# Board.destroy_all
-# User.destroy_all 
+# destroy existing data 
+DisplayedQuote.destroy_all
+Quote.destroy_all
+Tag.destroy_all
+TaskTag.destroy_all
 
 
 # Users
