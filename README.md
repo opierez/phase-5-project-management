@@ -2,7 +2,7 @@
 A project management tool that helps individuals organize and track their tasks. Users can create project boards with columns representing each stage of their workflow, such as "To-do," "In Progress," and "Done” where they can add their tasks, set deadlines, add notes to provide additional context, and assign tags to appropriately label the status, stage, and priority of the task. By using this task management application, individuals can improve their productivity and efficiency by streamlining their workflows with ease.
 
 ## How to access
-Deployed App: <a href="https://streamopti-app.onrender.com/">StreamEaze</a>
+Deployed App: <a href="https://streameaze-project-mgmt.onrender.com/signup">StreamEaze</a>
 
 
 ## User Functionality
