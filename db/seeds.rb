@@ -10,13 +10,13 @@ TaskTag.destroy_all
 
 
 # Users
-olivia = User.find_or_find_or_create_by_by(username: "olive", password: "1234", first_name: "Olivia", last_name: "Nunez")
-nicole = User.find_or_find_or_create_by_by(username: "nikki", password: "1234", first_name: "Nicole", last_name: "Saunders")
-miguel = User.find_or_find_or_create_by_by(username: "mike", password: "1234", first_name: "Miguel", last_name: "Phillipe")
+olivia = User.find_or_create_by(username: "olive", password: "1234", first_name: "Olivia", last_name: "Nunez")
+nicole = User.find_or_create_by(username: "nikki", password: "1234", first_name: "Nicole", last_name: "Saunders")
+miguel = User.find_or_create_by(username: "mike", password: "1234", first_name: "Miguel", last_name: "Phillipe")
 
 # Boards
-olivia_board1 = Board.find_or_find_or_create_by_by(title: "Content Creation", is_favorite: false, user_id: olivia.id)
-olivia_board2 = Board.find_or_find_or_create_by_by(title: "SE Projects", is_favorite: true, user_id: olivia.id)
+olivia_board1 = Board.find_or_create_by(title: "Content Creation", is_favorite: false, user_id: olivia.id)
+olivia_board2 = Board.find_or_create_by(title: "SE Projects", is_favorite: true, user_id: olivia.id)
 olivia_board3 = Board.find_or_create_by(title: "Photography", is_favorite: false, user_id: olivia.id)
 olivia_board4 = Board.find_or_create_by(title: "Music", is_favorite: false, user_id: olivia.id)
 nicole_board1 = Board.find_or_create_by(title: "DJ Sets", is_favorite: true, user_id: nicole.id)
